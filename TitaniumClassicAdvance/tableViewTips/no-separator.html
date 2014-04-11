@@ -510,21 +510,15 @@
             
                 <section class="normal" id="section-gitbook_23">
                 
-                    <p>title: TableViewの区切の線を無くす方法
-layout: post
-pict: no-separator.png
-category : ui</p>
-<h2 id="desc-path-ui-separatorstyle-">desc: Path風のUIを実現したい場合などに区切り線を非表示にしたいケースが出てくるかと思います。separatorStyleというプロパティ活用することで実現できます</h2>
-<p>{% include JB/setup %}</p>
-<p><img src="/img/no-separator.png" alt="リスト形式の画像イメージ"></p>
+                    <h1 id="tableview-">TableViewの区切の線を無くす方法</h1>
+<p>Path風のUIを実現したい場合などに区切り線を非表示にしたいケースが出てくるかと思います。separatorStyleというプロパティ活用することで実現できます</p>
 <p>例えば、Path風のUIを実現したい場合などにこの区切り線を非表示にしたいケースが出てくるかと思います。</p>
 <h2 id="-">実現方法</h2>
 <p>区切り線を無くす方法はとても簡単でseparatorStyleというプロパティに定数のNONEを設定します</p>
-<p>{% highlight javascript %}
-var tableView = Ti.UI.createTableView({
-  separatorStyle:&#39;NONE&#39; //数値の0でも同様のことが実現できます
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> tableView = Ti.UI.createTableView({
+  separatorStyle:<span class="hljs-string">'NONE'</span> <span class="hljs-comment">//数値の0でも同様のことが実現できます</span>
 });
-{% endhighlight %}</p>
+</code></pre>
 <p>こうすることで区切り線を非表示にすることができます</p>
 
                 
