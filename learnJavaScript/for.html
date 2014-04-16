@@ -537,16 +537,16 @@
                 
                     <h1 id="javascript-for-">JavaScript基礎:制御文（for）</h1>
 <h2 id="-">はじめに</h2>
-<p>過去私がが作ってきたアプリを振り返るとWebAPIから取得したJSON形式のデータを<strong>１つづつ取り出して</strong>処理したり、アプリ側のデータベースの機能を利用してキャッシュした情報から<strong>データを１つづつ取り出して</strong>TableViewRowに追加していくような処理をすることが比較的多くありました。</p>
-<p>作るアプリによっては、他の制御文を利用するケースというのももちろんありますが、Titanium Mobileが得意とするWeb APIと連携するスマフォアプリ開発に限ればまずは</p>
+<p>過去私がが作ってきたアプリを振り返るとWebAPIから取得したJSON形式のデータを<strong>１つづつ取り出して</strong>処理したりアプリケーション側のデータベースの機能を利用してキャッシュした情報から<strong>データを１つづつ取り出して</strong>TableViewRowに追加していくような処理をすることが比較的多くありました。</p>
+<p>作るアプリケーションによっては、他の制御文を利用するケースというのももちろんありますが、Titanium Mobileが得意とするWeb APIと連携するスマフォアプリ開発に限ればまずは</p>
 <ul>
 <li>ループ処理のための for</li>
 <li>if</li>
 </ul>
-<p>の２点をおさえておくのが良いかと思っております。</p>
-<p>そこで、まずはサンプルコードを示しながら、for ループの使い方について解説をしていきます。</p>
+<p>の２点をおさえておくことで、アプリケーション開発に取り組みやすくなるかと思ってます。</p>
+<p>そこで、まずはサンプルコードを示しながらfor ループの使い方について解説をしていきます。</p>
 <h2 id="for-tab-">for ループを使って複数のTabを生成するサンプル</h2>
-<p>前回は、関数に渡す引数を以下のようにすることでI am Window1!!! や、I am Window2!!!というラベルが表示されるタブを２つ生成しました</p>
+<p>前回は、関数に渡す引数を以下のようにすることでI am Window1!!! や、I am Window2!!!というラベルが表示されるタブを２つ生成しました。</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> tab1 = createTabElement(<span class="hljs-string">'1!!!'</span>);
 <span class="hljs-keyword">var</span> tab2 = createTabElement(<span class="hljs-string">'2!!!'</span>);
 </code></pre>

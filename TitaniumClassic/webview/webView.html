@@ -561,7 +561,7 @@ tab1 = Ti.UI.createTab({
 
 
 webView = Ti.UI.createWebView();          <span class="hljs-comment">// (1)</span>
-webView.url = <span class="hljs-string">'http://www.google.co.jp'</span>;  <span class="hljs-comment">// (2)</span>
+webView.url = <span class="hljs-string">'http://www.yahoo.co.jp'</span>;  <span class="hljs-comment">// (2)</span>
 
 win1.add(webView);                        <span class="hljs-comment">// (3)</span>
 
@@ -574,9 +574,10 @@ tabGroup.open();
 <li>WebViewにurlというプロパティがありそこに表示したいURLを代入することでそのサイトが表示されます。</li>
 <li>生成したWebViewをTi.UI.Windowに配置するための処理を実施します。</li>
 </ol>
-<h3 id="-">動作確認</h3>
-<p>上記ソースコードの入力が完了したらbuildして、iPhone Simulator上で以下のように表示されるか確認します</p>
-<p><img src="../../image/1stStep-009.png" alt="buildした結果の画面イメージ"></p>
+<h3 id="iphone-">iPhoneでの動作イメージ</h3>
+<p><img src="../../image/TitaniumClassic-webview-iphone.png" alt="buildした結果の画面イメージ"></p>
+<h3 id="android-">Androidでの動作イメージ</h3>
+<p><img src="../../image/TitaniumClassic-webview-android.png" alt="buildした結果の画面イメージ"></p>
 <h2 id="html-">HTMLコンテンツ準備して表示</h2>
 <p>先程は、指定したURLを表示する機能を試しましたが今度はあらかじめ準備しておいたHTMLコンテンツを表示する機能を実装します</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> tabGroup,win1,tab1,htmlContents,webView;
@@ -614,12 +615,13 @@ tabGroup.open();
 <li>表示しいたHTMLを生成します。</li>
 <li>WebViewのhtmlプロパティに上記で準備したHTMLを代入します。</li>
 </ol>
-<h3 id="-">動作確認</h3>
-<p>上記をbuildすると以下の様になるかと思います</p>
-<p><img src="../../image/1stStep-011.png" alt="buildした結果の画面イメージ"></p>
+<h3 id="iphone-">iPhoneでの動作イメージ</h3>
+<p><img src="../../image/TitaniumClassic-webview-iphone-01.png" alt="buildした結果の画面イメージ"></p>
+<h3 id="android-">Androidでの動作イメージ</h3>
+<p><img src="../../image/TitaniumClassic-webview-android-01.png" alt="buildした結果の画面イメージ"></p>
 <h2 id="-web-web-">仕上げにWebサイトを表示出来る簡易Webブラウザを作成します</h2>
 <p>ここまでの内容を踏まえて、最後に、URLが入力できるボックスを配置した簡易Webブラウザを作成します。</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> tabGroup,win1,tab1,urlBox,stopBtn,webView,actInd;
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> tabGroup,win1,tab1,urlBox,stopBtn,webView,actInd,style;
 Ti.UI.setBackgroundColor(<span class="hljs-string">'#FFF'</span>);
 tabGroup = Ti.UI.createTabGroup();
 win1 = Ti.UI.createWindow({
@@ -673,7 +675,13 @@ webView = Ti.UI.createWebView({    <span class="hljs-comment">// (3)</span>
   height:<span class="hljs-string">'auto'</span>
 });
 
-actInd = Ti.UI.createActivityIndicator({  <span class="hljs-comment">// (4)</span>
+<span class="hljs-keyword">if</span> (Ti.Platform.name === <span class="hljs-string">'iPhone OS'</span>){
+    style = Ti.UI.iPhone.ActivityIndicatorStyle.DARK;  <span class="hljs-comment">// (4)</span>
+} <span class="hljs-keyword">else</span> {
+    style = Ti.UI.ActivityIndicatorStyle.DARK;         <span class="hljs-comment">// (5)</span>
+}
+
+actInd = Ti.UI.createActivityIndicator({  <span class="hljs-comment">// (5)</span>
   top:<span class="hljs-number">50</span>,
   height:<span class="hljs-number">55</span>,
   width:<span class="hljs-string">'auto'</span>,
@@ -684,14 +692,14 @@ actInd = Ti.UI.createActivityIndicator({  <span class="hljs-comment">// (4)</spa
   borderColor:<span class="hljs-string">'#000'</span>,
   font:{fontFamily:<span class="hljs-string">'Helvetica Neue'</span>, fontSize:<span class="hljs-number">13</span>},
   message:<span class="hljs-string">' Loading...'</span>,
-  style:Ti.UI.iPhone.ActivityIndicatorStyle.PLAIN
+  style:style
 });
 win1.add(actInd);
 
-webView.addEventListener(<span class="hljs-string">'beforeload'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span>{</span>  <span class="hljs-comment">// (5)</span>
+webView.addEventListener(<span class="hljs-string">'beforeload'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span>{</span>  <span class="hljs-comment">// (7)</span>
   actInd.show();
 });
-webView.addEventListener(<span class="hljs-string">'load'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span>{</span>        <span class="hljs-comment">// (6)</span>
+webView.addEventListener(<span class="hljs-string">'load'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span>{</span>        <span class="hljs-comment">// (8)</span>
   actInd.hide();
 });
 win1.add(webView);
@@ -704,10 +712,17 @@ tabGroup.open();
 <li>URLを入力できるテキストフィールドを準備</li>
 <li>読み込み処理を中止するボタンを準備</li>
 <li>HTMLコンテンツを表示するためのWebViewを準備</li>
+<li>Ti.Platform.nameの値をチェックして、Ti.UI.ActivityIndicatorのstyleに適切な値を設定する。（なおAndroid OS向けにTi.UI.iPhone.ActivityIndicatorStyle.DARKを代入すると、アプリケーションが起動しないため両方のOSに対応する場合にはこの処理は必須になります）</li>
 <li>「読み込み中」ということを実現するためにTi.UI.ActivityIndicatorを作成</li>
 <li>Ti.UI.WebViewで利用できるイベントリスナーの１つに <strong>beforeload</strong> があります。これはコンテンツの読み込みが始まる前の処理を割り当てることが出来ます。今回はコンテンツが読込中であることを意図するために、Ti.UI.ActivityIndicatorを表示してます。</li>
 <li>Ti.UI.WebViewで利用できるイベントリスナーの１つに <strong>load</strong> があります。これはコンテンツの読み込みが完了したタイミングで処理を割り当てることが出来ます。今回はコンテンツが読込完了したことを表現したいんで、Ti.UI.ActivityIndicatorを非表示にしてます。</li>
 </ol>
+<h3 id="iphone-">iPhoneでの動作イメージ</h3>
+<p><img src="../../image/TitaniumClassic-webview-iphone-02.png" alt="起動時の画面イメージ"></p>
+<p><img src="../../image/TitaniumClassic-webview-iphone-03.png" alt="URL入力して表示されたイメージ"></p>
+<h3 id="android-">Androidでの動作イメージ</h3>
+<p><img src="../../image/TitaniumClassic-webview-android-02.png" alt="起動時の画面イメージ"></p>
+<p><img src="../../image/TitaniumClassic-webview-android-03.png" alt="URL入力して表示されたイメージ"></p>
 
                 
                 </section>

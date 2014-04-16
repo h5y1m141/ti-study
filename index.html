@@ -537,18 +537,20 @@
 <h2 id="-">はじめに</h2>
 <p>Titanium Mobileに興味を持って取り組み始めた時の参考書となるような書籍はいくつか出版されてますが、出版された当時のTitanium MobileのSDKのバージョンが一世代前のものだったこともあり、現在推奨されているような開発スタイルになってないケースがあったりします。</p>
 <p>また最新バージョンに適応した情報はインターネット上に多数存在しているのですが情報としてまとまってないため、初めてTitanium Mobileでの開発にチャレンジする人にとって少し敷居が高い状況になってるかと思ってます。</p>
-<p>このサイトでは、Titanium Mobileに興味を持って、開発に着手しはじめた方を想定読者として念頭に置き、私が作った<a href="https://qiita.com" target="_blank">Qiita</a>のビューワーアプリの<a href="https://github.com/h5y1m141/TiQiita" target="_blank">TiQiitaのアプリソースコードの一部を題材</a>にしながら以下について学べることを意識してまとめてます。</p>
+<p>このサイトでは、Titanium Mobileに興味を持って、開発に着手しはじめた方を想定読者として念頭に置き、私が作った<a href="https://qiita.com" target="_blank">Qiita</a>のビューワーアプリの<a href="https://github.com/h5y1m141/TiQiita" target="_blank">TiQiitaのアプリソースコードの一部を題材</a>に取り上げて、大きく以下３点について学べることを意識してまとめてます。</p>
 <ul>
-<li>JavaScriptの基礎を抑えた上でTitanium Classic環境で簡単なアプリケーションが開発できる基礎知識を学ぶ</li>
-<li>Titanium Classic環境でTiQiitaのようなアプリケーションを開発する上で抑えておくべき知識を学ぶ</li>
-<li>Appceleratorの公式のMVCフレームワークのAlloyについて学びつつ、Titanium Classic環境からAlloyに移行する方法について学ぶ</li>
+<li>JavaScriptの基礎を抑えた上でTitanium Classic環境で簡単なアプリケーションが開発できる基礎知識</li>
+<li>Titanium Classic環境でTiQiitaのようなアプリケーションを開発する上で抑えておくべき知識</li>
+<li>Appceleratorの公式のMVCフレームワークのAlloyについて学びつつ、Titanium Classic環境からAlloyに移行する方法</li>
 </ul>
+<p>このサイトでは、Titanium Mobileの開発環境を整える方法については取り上げていませんが、Titanium Mobileユーザ会にて<a href="http://titanium-install-guide-ja.github.io/" target="_blank">インストールガイド</a>をまとめているため環境構築はそちらをご覧ください。</p>
 <h2 id="-">想定する読者について</h2>
 <ul>
 <li>ひとまずTitanium Mobileに興味を持ってチャレンジしはじめた方</li>
-<li>プログラミング経験はそこまで問わないですが「こんなスマートフォンのアプリが欲しい」と具体的なアイデアを持っていて、かつ、HTML/CSSのコーディング程度は可能なレベルの方を想定してます。</li>
+<li>Titanium Mobileの環境構築を終えて、サンプルアプリのコードを少しいじったがそこから先に進めない方</li>
 </ul>
-<p>なお開発環境などは以下のとおりです。（2014年4月15日時点）</p>
+<h2 id="-">開発環境などの情報</h2>
+<p>執筆時点の2014年4月15日時点では以下の環境にて開発、動作確認をしております</p>
 <ul>
 <li>開発環境<ul>
 <li>Mac OS X 10.8.5</li>
@@ -556,8 +558,15 @@
 </ul>
 </li>
 <li>アプリ動作確認環境    <ul>
+<li>iPhone<ul>
 <li>iPhone Simulator Retina 4 inch（iOS 7.0.3）</li>
-<li>iPhone5(au) iOS 7.1</li>
+<li>実機はiPhone5(au) iOS 7.1にて確認</li>
+</ul>
+</li>
+<li>Android <ul>
+<li>GenyMotion上のNexus4 4.2.2 API17</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
