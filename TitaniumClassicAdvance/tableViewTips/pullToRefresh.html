@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# book: http://ogp.me/ns/book#">
         
         <meta charset="UTF-8">
-        <title>微妙な明度差のグラデーションを活用 | Tistudy</title>
+        <title>引っ張って更新処理を実装する | Tistudy</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -13,13 +13,13 @@
         <meta name="generator" content="www.gitbook.io">
 
         
-        <link rel="next" href="../../TitaniumClassicAdvance/tableViewTips/scroll-to-index.html" />
+        <link rel="next" href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRows.html" />
         
         
-        <link rel="prev" href="../../TitaniumClassicAdvance/tableViewTips/no-separator.html" />
+        <link rel="prev" href="../../TitaniumClassicAdvance/tableViewTips/README.html" />
         
 
-        <meta property="og:title" content="微妙な明度差のグラデーションを活用 | Tistudy">
+        <meta property="og:title" content="引っ張って更新処理を実装する | Tistudy">
         <meta property="og:site_name" content="Tistudy">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -40,7 +40,7 @@
     </head>
     <body>
         
-<div class="book" data-github="h5y1m141/tistudy" data-level="9.5">
+<div class="book" data-github="h5y1m141/tistudy" data-level="9.1">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="https://github.com/h5y1m141/tistudy" target="_blank" class="btn pull-left"><i class="fa fa-github-alt"></i></a>
@@ -68,7 +68,7 @@
             <a href="https://github.com/h5y1m141/tistudy/issues" target="blank">Questions and Issues</a>
         </li>
         <li>
-            <a href="https://github.com/h5y1m141/tistudy/edit/master/TitaniumClassicAdvance/tableViewTips/tableview-gradient-sample.md" target="blank">Edit and Contribute</a>
+            <a href="https://github.com/h5y1m141/tistudy/edit/master/TitaniumClassicAdvance/tableViewTips/pullToRefresh.md" target="blank">Edit and Contribute</a>
         </li>
         <li class="divider"></li>
         <li data-level="0">
@@ -484,7 +484,7 @@
         <div class="page-wrapper">
             <div class="book-progress">
     <div class="bar">
-        <div class="inner" style="width: 95%;min-width: 92.5%;"></div>
+        <div class="inner" style="width: 85%;min-width: 82.5%;"></div>
     </div>
     <div class="chapters">
     
@@ -558,13 +558,13 @@
     
         <a href="../../TitaniumClassicAdvance/tableViewTips/pullToRefresh.html" title="引っ張って更新処理を実装する" class="chapter done " data-progress="9.1" style="left: 85%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRows.html" title="画面下部までスクロールしたら追加の情報を読み込む" class="chapter done " data-progress="9.2" style="left: 87.5%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRows.html" title="画面下部までスクロールしたら追加の情報を読み込む" class="chapter  " data-progress="9.2" style="left: 87.5%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/collapse-or-expand-menu.html" title="メニュー一覧→サブメニューを展開するようなユーザインタフェースを実現する方法" class="chapter done " data-progress="9.3" style="left: 90%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/collapse-or-expand-menu.html" title="メニュー一覧→サブメニューを展開するようなユーザインタフェースを実現する方法" class="chapter  " data-progress="9.3" style="left: 90%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/no-separator.html" title="区切り線を無くす方法" class="chapter done " data-progress="9.4" style="left: 92.5%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/no-separator.html" title="区切り線を無くす方法" class="chapter  " data-progress="9.4" style="left: 92.5%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/tableview-gradient-sample.html" title="微妙な明度差のグラデーションを活用" class="chapter done " data-progress="9.5" style="left: 95%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/tableview-gradient-sample.html" title="微妙な明度差のグラデーションを活用" class="chapter  " data-progress="9.5" style="left: 95%;"></a>
     
         <a href="../../TitaniumClassicAdvance/tableViewTips/scroll-to-index.html" title="画面遷移後に元のスクロール位置まで戻す方法" class="chapter  " data-progress="9.6" style="left: 97.5%;"></a>
     
@@ -575,234 +575,188 @@
 
             <div class="page-inner">
             
-                <section class="normal" id="section-gitbook_32">
+                <section class="normal" id="section-gitbook_30">
                 
-                    <h1 id="-">微妙な明度差のグラデーションを活用</h1>
+                    <h1 id="-">引っ張って更新処理を実装する</h1>
 <h2 id="-">はじめに</h2>
-<p>少し凝ったUIデザインにしたい場合に、Photoshop/Illustratorなどの画像処理ソフトを活用して、素材となる画像を準備した上で、TableViewの背景画像として指定することがあるかと思います。</p>
-<p>TableViewの背景画像使わなくても、backgroundGradientプロパティをうまく使うことで、以下の様な仕上がりに出来るのでその方法について解説したいと思います</p>
-<p><img src="/img/tableViewGradientSample.png" alt="画像イメージ"></p>
-<h2 id="backgroundgradient-">backgroundGradientとは？</h2>
-<p>背景に対してグラデーション適用できるプロパティです。</p>
-<p>TableViewだけではなく、View、Buttonなどでも利用できます。詳細はAPI Documentで、backgroundGradient をキーワードに検索をしてみて下さい</p>
-<h2 id="backgroundgradient-">backgroundGradientの使い方</h2>
-<h3 id="type-">typeについて</h3>
-<p>ここで指定できる値は、’linear’か’radial’のどちらかになります。今回のように直線でグラデーションという場合にはlinearを指定しますが、radial使うと複雑なグラデーションを指定出来るようです</p>
-<h3 id="startpoint-endpoint">startPointとかendPoint</h3>
-<p>例えば、</p>
-<p>{% highlight coffeescript %}
-backgroundGradient:
-  type: &#39;linear&#39;
-  startPoint:
-    x:&#39;0%&#39;
-    y:&#39;0%&#39;
-  endPoint:
-    x:&#39;0%&#39;
-    y:&#39;100%&#39;
-{% endhighlight %}</p>
-<p>のようにstartPoint、endPointのxの値は同じに設定して、yの値を0→100%のようにすることで以下のように縦方向のグラデーションが設定されます</p>
-<p><img src="/img/tableViewGradientVertical.png" alt="画像イメージ"></p>
-<p>また</p>
-<p>{% highlight coffeescript %}
-backgroundGradient:
-  type: &#39;linear&#39;
-  startPoint:
-    x:&#39;0%&#39;
-    y:&#39;0%&#39;
-  endPoint:
-    x:&#39;100%&#39;
-    y:&#39;0%&#39;
-{% endhighlight %}</p>
-<p>のようにstartPoint、endPointのxの値を0→100%のにして、yの値は同じものに設定することで以下のように横方向のグラデーションが設定されます</p>
-<p><img src="/img/tableViewGradientHorizontal.png" alt="画像イメージ"></p>
-<h3 id="colors-color-position-">colorsプロパティのcolorとpositionについて</h3>
-<p>グラデーションの配色具合を調整しますが、実際のコードをサンプルにしながら順番に解説します。</p>
-<p>{% highlight coffeescript %}
-backgroundGradient:
-  type: &#39;linear&#39;
-  startPoint:
-    x:&#39;0%&#39;
-    y:&#39;0%&#39;
-  endPoint:
-    x:&#39;0%&#39;
-    y:&#39;100%&#39;
-  colors: [
-    color: &#39;#222&#39;
-    position: 0.0
-  ,<br>    color: &#39;#363636&#39;
-    position: 0.3
-  ,<br>    color: &#39;#dfed33&#39;
-    position: 1.0
-  ]
-{% endhighlight %}</p>
-<p>typeをlinearにしてstartPointのx,yを同じ値にして、yの値を0→100%にしているので、直線で縦方向にグラデーションがかかります。</p>
-<p>さて、メインとなるcolorsの所ですが</p>
-<p>{% highlight coffeescript %}
-  colors: [
-    color: &#39;#222&#39;
-    position: 0.0
-  ,<br>    color: &#39;#363636&#39;
-    position: 0.3
-  ,<br>    color: &#39;#dfed33&#39;
-    position: 1.0
-  ]
-{% endhighlight %}</p>
-<p>このように、colorと positionの２つのプロパティを持つオブジェクトを1つ以上含んだ配列を指定します</p>
-<p>上記の例の場合</p>
-<ul>
-<li>塗りつぶしの開始位置から30%まで:#222→#363636のグラデーション</li>
-<li>30%から塗りつぶしの終了位置:#363636→#dfed33のグラデーション</li>
-</ul>
-<p>となり、画面上ではこのような表示になります</p>
-<p><img src="/img/tableViewGradientVerticalYellow.png" alt="黄色から黒にグラデーションされている画面キャプチャ"></p>
-<hr>
-<h2 id="-">ソースコード全体</h2>
-<h3 id="app-coffee">app.coffee</h3>
-<p>{% highlight coffeescript %}
-bloggers = require(&#39;bloggers&#39;).data
-gradientTable = require(&quot;ui/gradientTable&quot;)
-tableView = new gradientTable(bloggers)</p>
-<p>win = Ti.UI.createWindow
-  backgroundColor:&#39;#fff&#39;</p>
-<p>win.add tableView
-win.open()
-{% endhighlight %}</p>
-<h3 id="ui-gradienttable-coffee">ui/gradientTable.coffee</h3>
-<p>{% highlight coffeescript %}
-class gradientTable
-  constructor:(bloggers) -&gt;
-    tableView = Ti.UI.createTableView
-      left:0
-      top:0
-      width:320
-      backgroundColor:&#39;#3c3c3c&#39;
-      separatorStyle:&quot;NONE&quot;</p>
-<pre><code>rows = []
-<span class="hljs-keyword">for</span> blogger <span class="hljs-keyword">in</span> bloggers
-
-  row = Ti.UI.createTableViewRow(
-    backgroundGradient:
-      type: <span class="hljs-string">'linear'</span>
-      startPoint:
-        x:<span class="hljs-string">'0%'</span>
-        y:<span class="hljs-string">'0%'</span>
-      endPoint:
-        x:<span class="hljs-string">'0%'</span>
-        y:<span class="hljs-string">'100%'</span>
-      colors: [
-        <span class="hljs-keyword">color</span>: <span class="hljs-string">'#393939'</span>
-        position: <span class="hljs-number">0.0</span>
-      ,      
-        <span class="hljs-keyword">color</span>: <span class="hljs-string">'#363636'</span>
-        position: <span class="hljs-number">0.5</span>
-      ,      
-        <span class="hljs-keyword">color</span>: <span class="hljs-string">'#333'</span>
-        position: <span class="hljs-number">1.0</span>
-      ]
-    width:<span class="hljs-number">320</span>
-    height:<span class="hljs-number">60</span>
-  )
-
-  nameLabel = Ti.UI.createLabel(
-    <span class="hljs-keyword">color</span>:<span class="hljs-string">'#bfbfbf'</span>
-    font:
-      fontSize:<span class="hljs-number">16</span>
-      fontWeight:<span class="hljs-string">'bold'</span>
-
-    <span class="hljs-keyword">text</span>:blogger.name
-    top:<span class="hljs-number">10</span>
-    left:<span class="hljs-number">20</span>
-    width:<span class="hljs-number">100</span>
-    height:<span class="hljs-number">20</span>
-    zIndex:<span class="hljs-number">2</span>
-  )
-  row.add nameLabel
-
-  blogTitleLabel = Ti.UI.createLabel(
-    <span class="hljs-keyword">color</span>:<span class="hljs-string">'#696969'</span>
-    font:
-      fontSize:<span class="hljs-number">12</span>
-    <span class="hljs-keyword">text</span>:blogger.blogTitle
-    top:<span class="hljs-number">32</span>
-    left:<span class="hljs-number">30</span>
-    width:<span class="hljs-number">150</span>
-    height:<span class="hljs-number">20</span>
-    zIndex:<span class="hljs-number">2</span>
-  )
-  row.add blogTitleLabel
-
-  rows.push row
-
-tableView.setData rows
-tableView.addEventListener(<span class="hljs-string">'swipe'</span>,(e) -&gt;
-  Ti.API.debug e.direction
-)
-<span class="hljs-keyword">return</span> tableView
-</code></pre><p>module.exports = gradientTable<br>{% endhighlight %}</p>
-<h3 id="bloggers-js">bloggers.js</h3>
-<p>{% highlight javascript %}</p>
-<p>var bloggers = [
-  {
-    name:&#39;横田　真俊&#39;,
-    blogTitle:&#39;毎日がアップデート&#39;,
-  },
-  {
-    name:&#39;大橋　悦夫&#39;,
-    blogTitle:&#39;SOHO考流記&#39;,
-  },
-  {
-    name:&#39;宮原　徹&#39;,
-    blogTitle:&#39;オープンでいこう&#39;,
-  },
-  {
-    name:&#39;太木　裕子&#39;,
-    blogTitle:&#39;幸せはどこにある？&#39;,
-  },
-  {
-    name:&#39;金山　めぐみ&#39;,
-    blogTitle:&#39;Megumilkめもりー&#39;,
-  },
-  {
-    name:&#39;金澤　創平&#39;,
-    blogTitle:&#39;20歳からのキャリア考&#39;,
-  },
-  {
-    name:&#39;上原　仁&#39;,
-    blogTitle:&#39;どこでもドアを創りたい&#39;,
-  },
-  {
-    name:&#39;大谷　弘喜&#39;,
-    blogTitle:&#39;踊るプログラマ物語&#39;,
-  },
-  {
-    name:&#39;美谷　広海&#39;,
-    blogTitle:&#39;世界を巡るFool on the web&#39;,
-  },
-  {
-    name:&#39;日比　知子&#39;,
-    blogTitle:&#39;家で働くママ日記&#39;,
-  },
-  {
-    name:&#39;佐々木　正吾&#39;,
-    blogTitle:&#39;作家の作業日報&#39;,
-  },
-  {
-    name:&#39;小山田　浩&#39;,
-    blogTitle:&#39;キャリア形成のお手伝い&#39;,
-  },
-  {
-    name:&#39;藤原　真由美&#39;,
-    blogTitle:&#39;人は見たものしか信じない&#39;,
-  },
-  {
-    name:&#39;堀川　貴満&#39;,
-    blogTitle:&#39;チェケラッ！&#39;,
-  }</p>
-<p>];</p>
-<p>var exports = {
-  data:bloggers
+<p>これまで作ってきたようなユーザインタフェースには<strong>引っ張って更新</strong>という処理を入れてあげたほうがユーザさんにとって使い勝手の良いアプリケーションというイメージに繋がると思います。</p>
+<p>引っ張って更新の処理は、ゼロベースで作るのは色々大変なのですが、Titanium Mobile SDK 3.x になってからは、<a href="http://docs.appcelerator.com/titanium/3.0/#!/api/Titanium.UI.RefreshControl" target="_blank">Titanium.UI.RefreshControl</a>というAPIが提供されており、これを利用することで簡単に実現できます。</p>
+<p>なおこのAPIは<strong>iOSのみ利用可能なため今回はiOSに絞って説明します</strong></p>
+<h2 id="titanium-ui-refreshcontrol-">Titanium.UI.RefreshControlの使い方の解説</h2>
+<h2 id="qiita-webapi-">QiitaのWebAPIからいつでも最新情報を取得できるように変更する</h2>
+<h3 id="qiita-js-">qiita.jsのソースコード</h3>
+<p>これは従来から変更はありませんが、念のためソースコードを以下記載します</p>
+<pre><code class="lang-javascript">exports.getLocalJSON = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  <span class="hljs-keyword">var</span> sample,file,body;
+  sample = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, <span class="hljs-string">"sample.json"</span>);
+  file = sample.read().toString();
+  body = <span class="hljs-built_in">JSON</span>.parse(file);
+  <span class="hljs-keyword">return</span> body;
 };
-{% endhighlight %}</p>
+exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span>{</span>
+    <span class="hljs-keyword">var</span> xhr,qiitaURL,method;
+    qiitaURL = <span class="hljs-string">"https://qiita.com/api/v1/items"</span>;
+    method = <span class="hljs-string">"GET"</span>;
+    xhr = Ti.Network.createHTTPClient();
+    xhr.open(method,qiitaURL);
+    xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        <span class="hljs-keyword">var</span> body;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-number">200</span>) {
+            body = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
+            Ti.API.info(<span class="hljs-string">"number is :"</span> + body.length);
+            callback(<span class="hljs-string">'ok'</span>,body);
+        } <span class="hljs-keyword">else</span> {
+            Ti.API.info(<span class="hljs-string">"error:status code is "</span> + <span class="hljs-keyword">this</span>.status);
+        }
+    };
+    xhr.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+        <span class="hljs-keyword">var</span> error;
+        error = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
+        Ti.API.info(error.error);
+    };
+    xhr.timeout = <span class="hljs-number">5000</span>;
+    xhr.send();
+};
+</code></pre>
+<h3 id="style-js-">style.jsのソースコード</h3>
+<pre><code class="lang-javascript">exports.mainTable = {
+    width: Ti.UI.FULL,
+    height: Ti.UI.FULL,
+    backgroundColor: <span class="hljs-string">"#fff"</span>,
+    separatorColor: <span class="hljs-string">"#ccc"</span>,
+    efreshControlEnabled: <span class="hljs-literal">true</span>,
+    refreshControlTintColor: <span class="hljs-string">'#66cc99'</span>,
+    refreshControlBackgroundColor: <span class="hljs-string">'#ccc'</span>, <span class="hljs-comment">// optional</span>
+    left: <span class="hljs-number">0</span>,
+    top: <span class="hljs-number">0</span>,
+    zIndex:<span class="hljs-number">0</span>
+
+};
+exports.row = {
+    width: Ti.UI.FULL,
+    height:<span class="hljs-number">60</span>,
+    borderWidth: <span class="hljs-number">0</span>,
+    className:<span class="hljs-string">"entry"</span>
+};
+
+exports.textLabel = {
+    width:<span class="hljs-number">250</span>,
+    height:<span class="hljs-number">50</span>,
+    top:<span class="hljs-number">5</span>,
+    left:<span class="hljs-number">60</span>,
+    color:<span class="hljs-string">"#222"</span>,
+    font:{
+        <span class="hljs-string">"fontSize"</span>:<span class="hljs-number">16</span>,
+        <span class="hljs-string">"fontWeight"</span>:<span class="hljs-string">"bold"</span>
+    }
+};
+
+<span class="hljs-comment">// これ以降追加する箇所</span>
+
+<span class="hljs-comment">// これまでは単にタイトルのみ表示してたが、投稿者のアイコンを表示するように修正</span>
+exports.iconImage = {
+    width:<span class="hljs-number">40</span>,
+    height:<span class="hljs-number">40</span>,
+    top:<span class="hljs-number">5</span>,
+    left:<span class="hljs-number">5</span>,
+    defaultImage:<span class="hljs-string">"logo.png"</span>
+};
+
+<span class="hljs-comment">// 引っ張って更新処理中の色を指定</span>
+exports.refreshControl = {
+    tintColor:<span class="hljs-string">'red'</span>    
+};
+
+<span class="hljs-comment">// QiitaのWebAPIから情報を読み込んでいる状態を示すために ActivityIndicatorを配置しためので</span>
+<span class="hljs-comment">// その設定値</span>
+exports.actInd = {
+    top:<span class="hljs-string">"20%"</span>,
+    left:<span class="hljs-string">"30%"</span>,
+    height:Ti.UI.SIZE,
+    width:Ti.UI.SIZE,
+    zIndex:<span class="hljs-number">0</span>,
+    color: <span class="hljs-string">"#f9f9f9"</span>,
+    backgroundColor:<span class="hljs-string">"#444"</span>,
+    font: {
+        fontFamily:<span class="hljs-string">'Helvetica Neue'</span>,
+        fontSize:<span class="hljs-number">16</span>,
+        fontWeight:<span class="hljs-string">'bold'</span>
+    },
+    message: <span class="hljs-string">'Loading...'</span>,
+    style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+};
+</code></pre>
+<h3 id="mainwindow-js-">mainWindow.jsのソースコード</h3>
+<pre><code class="lang-javascript">exports.createWindow = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">var</span> win = Ti.UI.createWindow({
+        title:<span class="hljs-string">"QiitaViewer"</span>
+    });
+
+    <span class="hljs-comment">// 起動時にWebAPIからデータを取得して投稿情報が取得できたらmainTableにセット</span>
+
+    getQiitaItems(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        Ti.API.info(<span class="hljs-string">"起動時にWebAPIからデータを取得しました"</span>);
+    });
+    win.add(mainTable);
+    win.add(actInd);
+    <span class="hljs-keyword">return</span> win;
+};
+
+
+<span class="hljs-comment">// これより下の箇所はこのmainWindow.js内では参照可能な変数だが、外部からは利用できない。</span>
+<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>),
+    refreshControl,
+    mainTable = Ti.UI.createTableView(style.mainTable),
+    actInd = Ti.UI.createActivityIndicator(style.actInd),
+    qiita = <span class="hljs-built_in">require</span>(<span class="hljs-string">"qiita"</span>);
+
+refreshControl = Ti.UI.createRefreshControl(style.refreshControl);
+mainTable.refreshControl = refreshControl;
+
+refreshControl.addEventListener(<span class="hljs-string">'refreshstart'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+    getQiitaItems(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        refreshControl.endRefreshing();
+        Ti.API.info(<span class="hljs-string">"引っ張って更新処理が完了"</span>);
+    });
+});
+
+<span class="hljs-keyword">var</span> getQiitaItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span>{</span>
+    <span class="hljs-keyword">var</span> rows;
+    <span class="hljs-keyword">if</span> (Ti.Network.online === <span class="hljs-literal">false</span>){
+        alert(<span class="hljs-string">"利用されてるスマートフォンからインターネットに接続できないため情報が取得できません"</span>);
+    } <span class="hljs-keyword">else</span> {
+        actInd.show();
+        qiita.getItems(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(status,items)</span>{</span>
+            rows = createRows(items);
+            mainTable.setData(rows);
+            actInd.hide();
+            <span class="hljs-keyword">return</span> callback();
+        });
+    }
+
+};
+<span class="hljs-keyword">var</span> createRows = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(items)</span>{</span>
+    <span class="hljs-keyword">var</span> rows = [],_i,_len,style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>);
+    <span class="hljs-keyword">for</span> (_i = <span class="hljs-number">0</span>, _len = items.length; _i &lt; _len; _i++) {
+        row = Ti.UI.createTableViewRow(style.row);
+        textLabel = Ti.UI.createLabel(style.textLabel);
+        iconImage = Ti.UI.createImageView(style.iconImage);
+        iconImage.image = items[_i].user.profile_image_url;
+        textLabel.text = items[_i].title;
+        row.add(textLabel);
+        row.add(iconImage);
+        rows.push(row);
+    }
+    <span class="hljs-keyword">return</span> rows;
+};
+</code></pre>
+<h3 id="app-js-">app.jsのソースコード</h3>
+<p>mainWindow.jsの構造を見なおしたことで、app.jsはこれまでよりも更にシンプルになりました。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> mainWindow,win;
+mainWindow = <span class="hljs-built_in">require</span>(<span class="hljs-string">"mainWindow"</span>);
+win = mainWindow.createWindow();    
+win.open();
+</code></pre>
 
                 
                 </section>
@@ -813,7 +767,7 @@ tableView.addEventListener(<span class="hljs-string">'swipe'</span>,(e) -&gt;
     
         
             
-            <a href="../../TitaniumClassicAdvance/tableViewTips/scroll-to-index.html" class="navigation-link next">Next</a>
+            <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRows.html" class="navigation-link next">Next</a>
             
         
     
