@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# book: http://ogp.me/ns/book#">
         
         <meta charset="UTF-8">
-        <title>画面下部までスクロールしたら追加の情報を読み込む | Tistudy</title>
+        <title>スクロールしたら追加の情報を読み込む | Tistudy</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -19,7 +19,7 @@
         <link rel="prev" href="../../TitaniumClassicAdvance/tableViewTips/pullToRefresh.html" />
         
 
-        <meta property="og:title" content="画面下部までスクロールしたら追加の情報を読み込む | Tistudy">
+        <meta property="og:title" content="スクロールしたら追加の情報を読み込む | Tistudy">
         <meta property="og:site_name" content="Tistudy">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -343,7 +343,7 @@
                         <li  data-level="9.2">
                             
                             <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRows.html">
-                                <i class="fa fa-check"></i> <b>9.2)</b> 画面下部までスクロールしたら追加の情報を読み込む
+                                <i class="fa fa-check"></i> <b>9.2)</b> スクロールしたら追加の情報を読み込む
                             </a>
                             
                         </li>
@@ -558,7 +558,7 @@
     
         <a href="../../TitaniumClassicAdvance/tableViewTips/pullToRefresh.html" title="引っ張って更新処理を実装する" class="chapter done " data-progress="9.1" style="left: 85%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRows.html" title="画面下部までスクロールしたら追加の情報を読み込む" class="chapter done " data-progress="9.2" style="left: 87.5%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRows.html" title="スクロールしたら追加の情報を読み込む" class="chapter done " data-progress="9.2" style="left: 87.5%;"></a>
     
         <a href="../../TitaniumClassicAdvance/tableViewTips/collapse-or-expand-menu.html" title="メニュー一覧→サブメニューを展開するようなユーザインタフェースを実現する方法" class="chapter  " data-progress="9.3" style="left: 90%;"></a>
     
@@ -577,9 +577,47 @@
             
                 <section class="normal" id="section-gitbook_28">
                 
-                    <h1 id="-">画面下部までスクロールしたら追加の情報を読み込む</h1>
+                    <h1 id="-">スクロールしたら追加の情報を読み込む</h1>
+<ul>
+<li>目次<ul>
+<li>はじめに</li>
+<li>実装方法のアイデア<ul>
+<li>TableViewにあるInsertRowAfterメソッドを活用するイメージ</li>
+<li>TableViewにあるSetDataメソッドを活用</li>
+<li>TableViewSectionで投稿情報別に区切るイメージ</li>
+</ul>
+</li>
+<li>どのアイデアを採択するか？</li>
+<li>実装のポイントをまずは解説<ul>
+<li>QiitaのWebAPIのページネーションについて</li>
+<li>TableViewSection作成時のheader指定について</li>
+<li>画面下部までスクロールした時に発火させるイベント処理について</li>
+</ul>
+</li>
+<li>実装<ul>
+<li>app.jsのソースコード</li>
+<li>style.jsのソースコード</li>
+<li>qiita.jsのソースコード<ul>
+<li>変更前</li>
+<li>変更後</li>
+</ul>
+</li>
+<li>mainWindow.jsのソースコード<ul>
+<li>コード解説</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>最終的な実行結果<ul>
+<li>iPhoneでの実行イメージ</li>
+<li>Androidでの実行イメージ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="-">はじめに</h2>
-<p>私が作ったTiQiitaのユーザーインターフェースでは画面下部までスクロールしたら、追加の投稿情報を読み超えるようにボタンを配置してます。</p>
+<p>私が作ったTiQiitaのユーザーインターフェースでは画面下部までスクロールしたら、追加の投稿情報を読み超えるようにボタンを配置してます。(以下キャプチャーの赤枠で囲った部分）</p>
 <p><img src="../../image/tableViewTips-addAnotherRows01.png" alt="Qiitaの画面イメージ"></p>
 <p>タイムラインのようなユーザインタフェースを持ったアプリケーションではこういう追加で読み込む処理は必須なものかと思いますが、Titanium Mobileでこれを実現する方法について解説します</p>
 <h2 id="-">実装方法のアイデア</h2>
@@ -618,6 +656,239 @@
 <h2 id="-">どのアイデアを採択するか？</h2>
 <p>上記３点取り上げましたが、３番目のTableViewSectionで投稿情報別に区切るイメージが一番シンプルな実装方法なのでこれについて解説します。</p>
 <p>なお、私が作ってるTiQiitaでは２番めのアイデアを採用してますが、この方法の実装では配列の結合処理、ローカルのキャッシュ処理など多岐にわたった知識が必要になることもあるため、取り上げませんでした。</p>
+<h2 id="-">実装のポイントをまずは解説</h2>
+<p>TableViewSectionで投稿情報別に区切る方法を実装していきます。実装自体はシンプルそうに見えるのですが、いくつかポイントになる箇所があるのでまずはその点について解説します。</p>
+<h3 id="qiita-webapi-">QiitaのWebAPIのページネーションについて</h3>
+<p>QiitaのWebAPIにリクエストを投げる時に、何ページ目の情報を何件取得するのかオプションで指定することが出来るページネーションの機能が備わってます。</p>
+<p>特にオプションの指定をせずに</p>
+<p><a href="https://qiita.com/api/v1/items" target="_blank">https://qiita.com/api/v1/items</a></p>
+<p>にアクセスすると、1ページ目の情報を20件取得する仕様になってます。（詳しくはQiitaのWeb APIのドキュメントを参照してください）</p>
+<p><a href="https://qiita.com/docs" target="_blank">https://qiita.com/docs</a></p>
+<p>例えば、2ページ目の情報を取得したい場合にはURLの末尾に<strong>?page=ページ名</strong>を付け加えます。具体的には以下のようにします。</p>
+<p><a href="https://qiita.com/api/v1/items?page=2" target="_blank">https://qiita.com/api/v1/items?page=2</a></p>
+<p>また、リクエスト辺りの取得件数を5件に制限したい場合には<strong>?per_page=件数</strong>とすることで処理ができます。具体的には以下のようにします。</p>
+<p><a href="https://qiita.com/api/v1/items?per_page=5" target="_blank">https://qiita.com/api/v1/items?per_page=5</a></p>
+<p>上記2つを組み合わせて利用することも出来ます。パラメータを組み合わせる場合には、&amp; で連結させます。以下は、2ページ目の情報を5件取得するという意味になります</p>
+<p><a href="https://qiita.com/api/v1/items?page=2&amp;per_page=5" target="_blank">https://qiita.com/api/v1/items?page=2&amp;per_page=5</a></p>
+<h3 id="tableviewsection-header-">TableViewSection作成時のheader指定について</h3>
+<p>1つのタイムラインのようなユーザインタフェースに見せるため、TableViewSection作成時にheaderViewやheaderTitleの設定は行わないようにします</p>
+<h3 id="-">画面下部までスクロールした時に発火させるイベント処理について</h3>
+<p>画面下部までスクロールした状態を検知するのにscrollEnd イベントを利用します。その際に</p>
+<ul>
+<li>WebAPIからデータを取得</li>
+<li>起動時に最初に表示するページ情報を保持しておきscrollEnd イベント発火のタイミングでその保持してるページ情報を1つ増加させる</li>
+<li>データ取得後にTableViewSectionを生成した上で投稿情報を追加する</li>
+</ul>
+<p>という処理を行うのですが、上記処理途中にスクロール出来る状態のままにしておくとscrollEndイベントが頻発してしまう可能性があります。</p>
+<p>それを防ぐためにTalbeViewのスクロールを一時的に利用不可にしつつ、処理途中であることを明示したほうが使い勝手の良いアプリケーションにつながると思います。</p>
+<h2 id="-">実装</h2>
+<p>これまで作ってきたアプリケーションをベースに開発をしていきます。</p>
+<h3 id="app-js-">app.jsのソースコード</h3>
+<p>app.jsはそのまま流用します。念のためソースコードを以下記載しておきます</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> mainWindow,win;
+
+mainWindow = <span class="hljs-built_in">require</span>(<span class="hljs-string">"mainWindow"</span>);
+win = mainWindow.createWindow();    
+win.open();
+</code></pre>
+<h3 id="style-js-">style.jsのソースコード</h3>
+<p>引っ張って更新処理を実装するで利用したソースコードをそのまま流用します。念のためソースコードを以下記載しておきます</p>
+<pre><code class="lang-javascript">exports.mainTable = {
+    <span class="hljs-string">"width"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"height"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"backgroundColor"</span>: <span class="hljs-string">"#fff"</span>,
+    <span class="hljs-string">"separatorColor"</span>: <span class="hljs-string">"#ccc"</span>,
+    <span class="hljs-string">"left"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"top"</span>: <span class="hljs-number">0</span>
+};
+exports.row = {
+    <span class="hljs-string">"width"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">60</span>,
+    <span class="hljs-string">"borderWidth"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"className"</span>:<span class="hljs-string">"entry"</span>
+};
+exports.iconImage = {
+    top:<span class="hljs-number">5</span>,
+    left:<span class="hljs-number">5</span>,
+    width:<span class="hljs-number">40</span>,
+    height:<span class="hljs-number">40</span>
+};
+exports.textLabel = {
+    <span class="hljs-string">"width"</span>:<span class="hljs-number">250</span>,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">50</span>,
+    <span class="hljs-string">"top"</span>:<span class="hljs-number">5</span>,
+    <span class="hljs-string">"left"</span>:<span class="hljs-number">60</span>,
+    <span class="hljs-string">"color"</span>:<span class="hljs-string">"#222"</span>,
+    <span class="hljs-string">"font"</span>:{
+        <span class="hljs-string">"fontSize"</span>:<span class="hljs-number">16</span>,
+        <span class="hljs-string">"fontWeight"</span>:<span class="hljs-string">"bold"</span>
+    }
+};
+<span class="hljs-comment">// 引っ張って更新処理中の色を指定</span>
+exports.refreshControl = {
+    tintColor:<span class="hljs-string">'red'</span>    
+};
+
+<span class="hljs-comment">// QiitaのWebAPIから情報を読み込んでいる状態を示すために ActivityIndicatorを配置しためので</span>
+<span class="hljs-comment">// その設定値</span>
+exports.actInd = {
+    top:<span class="hljs-string">"20%"</span>,
+    left:<span class="hljs-string">"30%"</span>,
+    height:Ti.UI.SIZE,
+    width:Ti.UI.SIZE,
+    zIndex:<span class="hljs-number">0</span>,
+    color: <span class="hljs-string">"#f9f9f9"</span>,
+    backgroundColor:<span class="hljs-string">"#444"</span>,
+    font: {
+        fontFamily:<span class="hljs-string">'Helvetica Neue'</span>,
+        fontSize:<span class="hljs-number">16</span>,
+        fontWeight:<span class="hljs-string">'bold'</span>
+    },
+    message: <span class="hljs-string">'Loading...'</span>,
+    style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+};
+</code></pre>
+<h3 id="qiita-js-">qiita.jsのソースコード</h3>
+<p>QiitaのWebAPIにアクセスする際に何ページ目を取得するのか指定する必要があります。関数の引数にページ番号を設定し、かつ、QiitaのWebAPIへのアクセス時にページ番号のオプションを指定します</p>
+<h4 id="-">変更前</h4>
+<pre><code class="lang-javascript">exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span>{</span>
+    <span class="hljs-keyword">var</span> xhr,qiitaURL,method;
+    qiitaURL = <span class="hljs-string">"https://qiita.com/api/v1/items"</span>;
+</code></pre>
+<h4 id="-">変更後</h4>
+<pre><code class="lang-javascript">exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(page,callback)</span>{</span>
+    <span class="hljs-keyword">var</span> xhr,qiitaURL,method;
+    qiitaURL = <span class="hljs-string">"https://qiita.com/api/v1/items?page="</span> + page;
+</code></pre>
+<p>最終的には以下のようになります</p>
+<pre><code class="lang-javascript">exports.getLocalJSON = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  <span class="hljs-keyword">var</span> sample,file,body;
+  sample = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, <span class="hljs-string">"sample.json"</span>);
+  file = sample.read().toString();
+  body = <span class="hljs-built_in">JSON</span>.parse(file);
+  <span class="hljs-keyword">return</span> body;
+};
+<span class="hljs-comment">// 今回拡張する機能</span>
+exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(page,callback)</span>{</span>
+    <span class="hljs-keyword">var</span> xhr,qiitaURL,method;
+    qiitaURL = <span class="hljs-string">"https://qiita.com/api/v1/items?page="</span> + page;
+    Ti.API.info(<span class="hljs-string">"qiitaURL is"</span> + qiitaURL);
+    method = <span class="hljs-string">"GET"</span>;
+    xhr = Ti.Network.createHTTPClient();
+    xhr.open(method,qiitaURL);
+    xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        <span class="hljs-keyword">var</span> body;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-number">200</span>) {
+            body = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
+            Ti.API.info(<span class="hljs-string">"number is :"</span> + body.length);
+            callback(<span class="hljs-string">'ok'</span>,body);
+        } <span class="hljs-keyword">else</span> {
+            Ti.API.info(<span class="hljs-string">"error:status code is "</span> + <span class="hljs-keyword">this</span>.status);
+        }
+    };
+    xhr.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+        <span class="hljs-keyword">var</span> error;
+        error = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
+        Ti.API.info(error.error);
+    };
+    xhr.timeout = <span class="hljs-number">5000</span>;
+    xhr.send();
+};
+</code></pre>
+<h3 id="mainwindow-js-">mainWindow.jsのソースコード</h3>
+<p>ユーザインタフェース側の処理が多くなるため、上記3つと比較すると少し長くなりますが、先にソースコードz戦隊を以下に記載します。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>),
+    mainTable = Ti.UI.createTableView(style.mainTable),
+    actInd = Ti.UI.createActivityIndicator(style.actInd),
+    qiita = <span class="hljs-built_in">require</span>(<span class="hljs-string">"qiita"</span>),
+    pageNumber  = <span class="hljs-number">1</span>, <span class="hljs-comment">//  (1)</span>
+    pageSection = <span class="hljs-number">0</span>; <span class="hljs-comment">//  (2)</span>
+
+exports.createWindow = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">var</span> win = Ti.UI.createWindow({
+        title:<span class="hljs-string">"QiitaViewer"</span>
+    });
+
+
+    getQiitaItems(pageNumber,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(items)</span>{</span>         <span class="hljs-comment">// (3)</span>
+        <span class="hljs-keyword">var</span> section = Ti.UI.createTableViewSection();
+        Ti.API.info(<span class="hljs-string">"起動時にWebAPIからデータを取得しました"</span>);
+        mainTable.setData([createSection(items,section)]); <span class="hljs-comment">// (4)</span>
+        pageNumber++;
+    });
+    win.add(mainTable);
+    win.add(actInd);
+    <span class="hljs-keyword">return</span> win;
+};
+
+mainTable.addEventListener(<span class="hljs-string">'scrollEnd'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span>{</span>
+  <span class="hljs-comment">// (5)</span>
+    mainTable.scrollable = <span class="hljs-literal">false</span>; 
+    mainTable.opacity = <span class="hljs-number">0.3</span>;
+
+    getQiitaItems(pageNumber,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(items)</span>{</span>  <span class="hljs-comment">// (6)</span>
+        <span class="hljs-keyword">var</span> section = Ti.UI.createTableViewSection(),
+        insertSection = createSection(items,section);  <span class="hljs-comment">// (7)        </span>
+        mainTable.insertSectionAfter(pageSection,insertSection);  <span class="hljs-comment">// (8)</span>
+    <span class="hljs-comment">// (9)</span>
+        mainTable.scrollable = <span class="hljs-literal">true</span>;
+        mainTable.opacity = <span class="hljs-number">1.0</span>;
+        pageNumber++;
+        pageSection++;
+
+    });
+});
+
+<span class="hljs-comment">// (10)</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getQiitaItems</span><span class="hljs-params">(page,callback)</span>{</span>
+    <span class="hljs-keyword">if</span> (Ti.Network.online === <span class="hljs-literal">false</span>){
+        alert(<span class="hljs-string">"利用されてるスマートフォンからインターネットに接続できないため情報が取得できません"</span>);
+    } <span class="hljs-keyword">else</span> {
+        actInd.show();
+        qiita.getItems(page,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(status,items)</span>{</span>
+            actInd.hide();
+            <span class="hljs-keyword">return</span> callback(items);
+        });
+    }
+
+};
+<span class="hljs-comment">// (11)</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createSection</span><span class="hljs-params">(items,section)</span>{</span>
+    <span class="hljs-keyword">var</span> _i,_len,style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>);
+    <span class="hljs-keyword">for</span> (_i = <span class="hljs-number">0</span>, _len = items.length; _i &lt; _len; _i++) {
+        row = Ti.UI.createTableViewRow(style.row);
+        textLabel = Ti.UI.createLabel(style.textLabel);
+        iconImage = Ti.UI.createImageView(style.iconImage);
+        iconImage.image = items[_i].user.profile_image_url;
+        textLabel.text = items[_i].title;
+        row.add(textLabel);
+        row.add(iconImage);
+        section.add(row);
+
+    }
+    <span class="hljs-keyword">return</span> section;
+};
+</code></pre>
+<h4 id="-">コード解説</h4>
+<ol>
+<li>起動時に表示するページ数を設定</li>
+<li>TableViewSectionの挿入箇所となる変数を設定。</li>
+<li>起動時にWebAPIからデータを取得して投稿情報が取得できたらmainTableにセット</li>
+<li>QiitaのWebAPIから取得した投稿情報を引数にして後述するcreateSection関数を利用してTableViewSectionを生成し、それをTableView.setData()を利用してTableViewに反映させる</li>
+<li>scrollEndイベント発火した時に処理中であることを示すために、TableViewのscrollableの値をfalseに設定することで、スクロール出来ないように制御します。またその後のopacityの値をデフォルトの1.0から0に近い値（今回は0.3）に変更していますが、こうすることでTableView全体が少し暗くなり処理中であるというのが利用してるユーザさんにはより伝わりやすくなるかと思います。</li>
+<li>後述するgetQiitaItems関数を利用して、QiitaのWebAPIから投稿情報を取得します。</li>
+<li>QiitaのWebAPIから取得した投稿情報を引数にして後述するcreateSection関数を利用してTableViewSectionを生成しておきます</li>
+<li>TableViewのinsertSectionAfterメソッドを利用して上記7.で生成したTableViewSectionを挿入します。</li>
+<li>挿入処理が完了したので、TableViewのスクロール制御、透明度の設定をデフォルトの値に設定しなおしつつ、次に表示するページ数と、TableViewSectionの挿入箇所の変数をそれぞれ1つ増加させます</li>
+<li>引数にページ数を渡しqiita.getItems()を呼び出してQiitaのWeb APIから投稿情報を取得します。投稿情報取得できたらその値をコールバック関数に渡します</li>
+<li>引数にQiitaのWeb APIから取得できた投稿情報を渡して必要な要素が追加されたTableViewRowを順番に生成し、そのRowをTableViewSectionに順番に追加して、最後にそのTableViewSectionを返します</li>
+</ol>
+<h2 id="-">最終的な実行結果</h2>
+<p>スクロール中の状態を画面キャプチャー取れないので見た目にはわかりづらいのですが以下のようになります。</p>
+<h3 id="iphone-">iPhoneでの実行イメージ</h3>
+<p><img src="../../image/tableViewTips-addAnotherRows-iPhone01.png" alt=""></p>
+<h3 id="android-">Androidでの実行イメージ</h3>
+<p><img src="../../image/tableViewTips-addAnotherRows-android01.png" alt=""></p>
 
                 
                 </section>
