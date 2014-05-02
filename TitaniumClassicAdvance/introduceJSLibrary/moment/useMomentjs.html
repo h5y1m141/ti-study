@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# book: http://ogp.me/ns/book#">
         
         <meta charset="UTF-8">
-        <title>Moment.jsを使ったサンプルアプリ | Tistudy</title>
+        <title>QiitaのWebAPIと連携させるアプリでMoment.jsを使う | Tistudy</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -19,7 +19,7 @@
         <link rel="prev" href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/README.html" />
         
 
-        <meta property="og:title" content="Moment.jsを使ったサンプルアプリ | Tistudy">
+        <meta property="og:title" content="QiitaのWebAPIと連携させるアプリでMoment.jsを使う | Tistudy">
         <meta property="og:site_name" content="Tistudy">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -381,7 +381,7 @@
                         <li  data-level="11.1">
                             
                             <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html">
-                                <i class="fa fa-check"></i> <b>11.1)</b> Moment.jsを使ったサンプルアプリ
+                                <i class="fa fa-check"></i> <b>11.1)</b> QiitaのWebAPIと連携させるアプリでMoment.jsを使う
                             </a>
                             
                         </li>
@@ -472,7 +472,7 @@
     
         <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/README.html" title="日付処理を便利に行えるMoment.js" class="chapter done " data-progress="11" style="left: 18.91891891891892%;"></a>
     
-        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" title="Moment.jsを使ったサンプルアプリ" class="chapter done " data-progress="11.1" style="left: 21.62162162162162%;"></a>
+        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" title="QiitaのWebAPIと連携させるアプリでMoment.jsを使う" class="chapter done " data-progress="11.1" style="left: 21.62162162162162%;"></a>
     
         <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/README.html" title="配列操作を便利に行えるUnderscore.js" class="chapter  " data-progress="12" style="left: 24.324324324324323%;"></a>
     
@@ -539,13 +539,15 @@
             
                 <section class="normal" id="section-gitbook_27">
                 
-                    <h1 id="moment-js-">Moment.jsを使ったサンプルアプリ</h1>
+                    <h1 id="qiita-webapi-moment-js-">QiitaのWebAPIと連携させるアプリでMoment.jsを使う</h1>
 <h2 id="-">はじめに</h2>
-<p>先ほどMoment.jsの概要を解説しましたので、これ以降、Moment.jsを使ったサンプルアプリの解説をします。</p>
+<p>先ほどMoment.jsの概要を解説しましたので、QiitaのWebAPIと連携させるアプリでMoment.jsを使ったサンプルアプリの解説をします。</p>
+<h2 id="qiita-webapi-">QiitaのWebAPIの投稿情報の日付データの扱いについて</h2>
 <p>QiitaのWebAPIでは、xx分前の情報かわかるような項目がすでに存在すると前の項で解説しましたが、例えば、投稿IDがb375ad62efd64c11d032の情報を例にします。</p>
 <p>この投稿情報をWebAPI経由で取得するにはブラウザ上で</p>
 <p><a href="https://qiita.com/api/v1/items/b375ad62efd64c11d032" target="_blank">https://qiita.com/api/v1/items/b375ad62efd64c11d032</a></p>
 <p>にアクセスすると、JSON形式の値が返ってきます。</p>
+<p><img src="../../../image/introduceJSLibrary-moment-QiitaWebAPI01.png" alt=""></p>
 <p>このデータの以下の項目がそれぞれxx分前の情報に該当します。</p>
 <ul>
 <li>created_at_in_words<ul>
@@ -569,8 +571,8 @@
 </li>
 </ul>
 <p>以下サンプルアプリでは、上記2つのうち、作成日である created_at の項目を参照することにします。</p>
-<h2 id="-">投稿情報の作成日を画面に表示する</h2>
-<p>これまで作ってきたアプリケーションをベースにまずは投稿情報の作成日を画面に表示する機能の実装を行います。。app.js、qiita.jsは基本的には変更ないので、コードだけ以下記載します。</p>
+<h2 id="-">まずは投稿情報の作成日を画面に表示する</h2>
+<p>これまで作ってきたアプリケーションをベースにまずは投稿情報の作成日を画面に表示する機能の実装を行います。app.js、qiita.jsは基本的には変更ないので、コードだけ以下記載します。</p>
 <h3 id="app-js">app.js</h3>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> mainWindow,win;
 
@@ -735,6 +737,40 @@ exports.actInd = {
 <p><img src="../../../image/introduceJSLibrary-moment-iphone01.png" alt="iPhone"></p>
 <h3 id="android">Android</h3>
 <p><img src="../../../image/introduceJSLibrary-moment-android01.png" alt="Android"></p>
+<h2 id="moment-js-">Moment.jsを使って投稿情報の作成日を任意の形式に変更する</h2>
+<p>投稿情報の作成日を画面に表示する機能を実装したので、今度はMoment.jsを使って日付の表示方法を変更します。</p>
+<p>修正するのは、mainWindow.jsのcreateRows関数の所だけです</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// 一部分だけ抜粋</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createRows</span><span class="hljs-params">(items)</span>{</span>
+    <span class="hljs-keyword">var</span> rows = [],_i,_len,style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>),row,textLabel,createdTimeLabel,iconImage,moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">"moment"</span>),momentja = <span class="hljs-built_in">require</span>(<span class="hljs-string">"momentja"</span>);   <span class="hljs-comment">// (1)</span>
+    <span class="hljs-keyword">for</span> (_i = <span class="hljs-number">0</span>, _len = items.length; _i &lt; _len; _i++) {
+          row = Ti.UI.createTableViewRow(style.row);
+          textLabel = Ti.UI.createLabel(style.textLabel);
+          createdTimeLabel = Ti.UI.createLabel(style.createdTimeLabel);
+          createdTimeLabel.text = moment(items[_i].created_at).fromNow(); <span class="hljs-comment">// (2)</span>
+          iconImage = Ti.UI.createImageView(style.iconImage);
+          iconImage.image = items[_i].user.profile_image_url;
+          textLabel.text = items[_i].title;
+          row.add(textLabel);
+          row.add(iconImage);
+          row.add(createdTimeLabel);
+          rows.push(row);
+    }
+    <span class="hljs-keyword">return</span> rows;
+};
+</code></pre>
+<ol>
+<li>Moment.js＆日本語化表示のために、必要なファイルの読み込みを行う記述を追加します</li>
+<li>QiitaのWebAPIの投稿情報が格納されてれるitems[_i].created_atの日付データを変換するために、moment()の引数にitems[_i].created_atを渡します。</li>
+</ol>
+<h2 id="-">実行結果</h2>
+<p>iPhone、Androidでの実行結果は以下のようになります。</p>
+<h3 id="iphone">iPhone</h3>
+<p><img src="../../../image/introduceJSLibrary-moment-iphone02.png" alt="iPhone"></p>
+<h3 id="android">Android</h3>
+<p><img src="../../../image/introduceJSLibrary-moment-android02.png" alt="Android"></p>
+<p>Moment.jsの公式サイトにある利用方法のドキュメントは英語のみですが表記方法のサンプルがいくつか紹介されてるので、一読するのをオススメします。</p>
+<p><a href="http://momentjs.com/docs/#/displaying/" target="_blank">http://momentjs.com/docs/#/displaying/</a></p>
 
                 
                 </section>

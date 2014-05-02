@@ -381,7 +381,7 @@
                         <li  data-level="11.1">
                             
                             <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html">
-                                <i class="fa fa-check"></i> <b>11.1)</b> Moment.jsを使ったサンプルアプリ
+                                <i class="fa fa-check"></i> <b>11.1)</b> QiitaのWebAPIと連携させるアプリでMoment.jsを使う
                             </a>
                             
                         </li>
@@ -472,7 +472,7 @@
     
         <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/README.html" title="日付処理を便利に行えるMoment.js" class="chapter done " data-progress="11" style="left: 18.91891891891892%;"></a>
     
-        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" title="Moment.jsを使ったサンプルアプリ" class="chapter  " data-progress="11.1" style="left: 21.62162162162162%;"></a>
+        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" title="QiitaのWebAPIと連携させるアプリでMoment.jsを使う" class="chapter  " data-progress="11.1" style="left: 21.62162162162162%;"></a>
     
         <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/README.html" title="配列操作を便利に行えるUnderscore.js" class="chapter  " data-progress="12" style="left: 24.324324324324323%;"></a>
     
@@ -549,10 +549,13 @@
 <h2 id="moment-js-">Moment.jsを利用するための事前準備</h2>
 <p><a href="http://momentjs.com/" target="_blank">Moment.js</a> のサイトからMinifiedされたファイルをダウンロードします。</p>
 <p><img src="../../../image/introduceJSLibrary-moment00.png" alt="iPhone"></p>
-<p>ファイル名を<strong>moment.min.jsからmoment.js</strong>に変更します。</p>
-<p>デフォルトは英語表記なのですが、i18n（internationalization。国際化）対応しているので、日本語表記をした別ファイルを準備することで手軽に日本語化も出来ます。<a href="http://gti.jp" target="_blank">株式会社ジーティーアイ</a>の佐藤　毅 さんという方が作成した<a href="http://gti.jp/ajax/livestamp/moment.lang_ja.js" target="_blank">moment.lang_ja.js</a>をダウンロードして利用します。</p>
+<p>ダウンロードしたファイルを<strong>moment.min.jsからmoment.js</strong>に変更します。</p>
+<h3 id="-">日本語化するためのファイルを別途ダウンロードする</h3>
+<p>Moment.jsはデフォルトは英語表記なのですがi18n（internationalization。国際化）対応しているので、日本語表記をした別ファイルを準備することで手軽に日本語化も出来ます。</p>
+<p><a href="http://gti.jp" target="_blank">株式会社ジーティーアイ</a>の佐藤　毅 さんという方が作成した<a href="http://gti.jp/ajax/livestamp/moment.lang_ja.js" target="_blank">moment.lang_ja.js</a>をダウンロードして利用します。</p>
 <p>なお、moment.lang_ja.jsのファイル名だと手元の環境では、require()で読み込めなかったので<strong>momentja.js</strong>という形にリネームして利用します。</p>
-<p>プロジェクト直下のフォルダが以下のようなディレクトリ構造になります</p>
+<h3 id="-">それぞれのファイルを配置した結果の状態</h3>
+<p>プロジェクト直下のフォルダが以下のようなディレクトリ構造になっていればOKです</p>
 <pre><code class="lang-sh">.
 ├── CHANGELOG<span class="hljs-preprocessor">.txt</span>
 ├── LICENSE
@@ -574,7 +577,7 @@
 ├── manifest
 └── tiapp<span class="hljs-preprocessor">.xml</span>
 </code></pre>
-<h2 id="moment-js-">Moment.jsの例</h2>
+<h2 id="moment-js-">Moment.jsを使ってみる</h2>
 <p>Moment.js使った簡易のサンプルをまずは紹介します。</p>
 <p>app.jsの中身を一旦削除して以下を記述します</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> moment,momentja,time1,time2;
@@ -588,6 +591,7 @@ alert(time2);
 <p>実行するとtime1、time2のそれぞれの実行結果が画面に表示されます。</p>
 <h3 id="time1-">time1の実行結果</h3>
 <p>momentを読み込んだ後に、momentjaを読み込んで日本語化されてるため、以下のように表示されます。</p>
+<p>※キャプチャー画面はiPhone（iOS7）のアラート部分のみ取得してますので、iPhone版の別のiOSやAndroidでの表示は多少異なります。</p>
 <p><img src="../../../image/introduceJSLibrary-moment-alert00.png" alt=""></p>
 <p>もしも、日本語表記ではなく、英語表記にしたい場合にはmomentjaを読み込まず以下のようにすることで期待される結果が得られます</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> moment,nonLocalizeTime;
