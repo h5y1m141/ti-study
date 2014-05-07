@@ -386,14 +386,6 @@
                             
                         </li>
                     
-                        <li  data-level="11.2">
-                            
-                            <a href="../../TitaniumClassicAdvance/introduceJSLibrary/README.html">
-                                <i class="fa fa-check"></i> <b>11.2)</b> 更新日の差分を取得する
-                            </a>
-                            
-                        </li>
-                    
                 </ul>
                 
             </li>
@@ -543,11 +535,278 @@
 <h2 id="-">はじめに</h2>
 <p>これまで作ってきたようなQiitaのビューワーアプリケーションのような場合に、メニュー一覧から詳細情報に移る場合には、画面遷移させるのが一般的かと思います。</p>
 <p>ただ、状況によって、画面遷移させずにメニュー一覧からサブメニューを展開するようなユーザインタフェースを実現したい場合も出てくるかと思います。</p>
-<p>例えば、起動時にこのように都道府県のエリア名を表示。</p>
-<p><img src="../../image/tableViewTips-collapse-or-expand-menu-sampleImage01.png" alt="展開前の画面イメージ"></p>
-<p>任意のエリアをタッチすると、画面遷移させずに、このようにそこに紐づく都道府県が展開するようなユーザインタフェースのイメージです</p>
-<p><img src="../../image/tableViewTips-collapse-or-expand-menu-sampleImage02.png" alt="展開後の画面イメージ"></p>
-<p>こういう機能はTitanium標準のAPIを上手く組み合わせることで実現できるので以下に実装方法を解説しています。</p>
+<p>例えば、起動時に最小限のメニューを表示しておき、<strong>タグから検索</strong>という箇所をタッチするとサブメニューのタグ一覧が展開されるようなイメージです。</p>
+<h3 id="iphone-">iPhoneでのイメージ</h3>
+<h4 id="-">起動時の画面</h4>
+<p><img src="../../image/tableViewTips-collapse-or-expand-menu-iphone01.png" alt=""></p>
+<h4 id="-">タグから検索の項目をタッチした後の画面</h4>
+<p><img src="../../image/tableViewTips-collapse-or-expand-menu-iphone02.png" alt=""></p>
+<h3 id="android-">Androidでのイメージ</h3>
+<h4 id="-">起動時の画面</h4>
+<p><img src="../../image/tableViewTips-collapse-or-expand-menu-android02.png" alt=""></p>
+<h4 id="-">タグから検索の項目をタッチした後の画面</h4>
+<p><img src="../../image/tableViewTips-collapse-or-expand-menu-android01.png" alt=""></p>
+<h2 id="-">実装におけるポイント</h2>
+<p>先ほどの章で紹介したTableViewSectionで投稿情報別に区切る方法をベースに考えます。</p>
+<p>メニュー一覧の表示方法として</p>
+<ul>
+<li>メニュー一覧にTableViewSectionのheaderTitleを設定する</li>
+<li>TableViewSectionのHeaderViewにカスタマイズしたものを設定する</li>
+</ul>
+<p>という２つがあります。</p>
+<p>前者を採用すると、以下のように領域がかなり小さくなってしまい、使い勝手があまり良いとはいえないものになります。</p>
+<p><img src="../../image/tableViewTips-collapse-or-expand-menu-useHeaderTitle.png" alt=""></p>
+<p><img src="../../image/tableViewTips-collapse-or-expand-menu-useHeaderTitleAndroid.png" alt=""></p>
+<p>後者のTableViewSectionのHeaderViewにカスタマイズしたものを設定方法を利用することで、メニューの幅の部分も好みのサイズに設定可能になるため、この方法を採用します。</p>
+<h2 id="-">実装</h2>
+<p>これまで作ってきたアプリケーションをベースにして、それぞれのファイルを実装してきます。</p>
+<h3 id="app-js">app.js</h3>
+<p>ここはそのまま流用できるのと、説明するべき箇所もないのでコードの記載だけにとどめます。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> mainWindow,win;
+
+mainWindow = <span class="hljs-built_in">require</span>(<span class="hljs-string">"mainWindow"</span>);
+win = mainWindow.createWindow();    
+win.open();
+</code></pre>
+<h3 id="style-js">style.js</h3>
+<p>ここは大きな変更はないのですが</p>
+<ul>
+<li>タグ一覧のメニューを生成する際に利用するタグのラベル</li>
+<li>タグのアイコン画像に対応する情報</li>
+<li>TableViewSectionのカスタムビューに適用するViewとLabelの設定情報</li>
+</ul>
+<p>について追記してます。</p>
+<pre><code class="lang-javascript">exports.mainTable = {
+    <span class="hljs-string">"width"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"height"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"backgroundColor"</span>: <span class="hljs-string">"#fff"</span>,
+    <span class="hljs-string">"separatorColor"</span>: <span class="hljs-string">"#ccc"</span>,
+    <span class="hljs-string">"left"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"top"</span>: <span class="hljs-number">0</span>
+};
+exports.row = {
+    <span class="hljs-string">"width"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">60</span>,
+    <span class="hljs-string">"borderWidth"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"className"</span>:<span class="hljs-string">"entry"</span>
+};
+exports.iconImage = {
+    top:<span class="hljs-number">5</span>,
+    left:<span class="hljs-number">5</span>,
+    width:<span class="hljs-number">40</span>,
+    height:<span class="hljs-number">40</span>
+};
+exports.textLabel = {
+    <span class="hljs-string">"width"</span>:<span class="hljs-number">250</span>,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">50</span>,
+    <span class="hljs-string">"top"</span>:<span class="hljs-number">5</span>,
+    <span class="hljs-string">"left"</span>:<span class="hljs-number">60</span>,
+    <span class="hljs-string">"color"</span>:<span class="hljs-string">"#222"</span>,
+    <span class="hljs-string">"font"</span>:{
+        <span class="hljs-string">"fontSize"</span>:<span class="hljs-number">16</span>,
+        <span class="hljs-string">"fontWeight"</span>:<span class="hljs-string">"bold"</span>
+    }
+};
+<span class="hljs-comment">// 引っ張って更新処理中の色を指定</span>
+exports.refreshControl = {
+    tintColor:<span class="hljs-string">'red'</span>    
+};
+
+<span class="hljs-comment">// QiitaのWebAPIから情報を読み込んでいる状態を示すために ActivityIndicatorを配置しためので</span>
+<span class="hljs-comment">// その設定値</span>
+exports.actInd = {
+    top:<span class="hljs-string">"20%"</span>,
+    left:<span class="hljs-string">"30%"</span>,
+    height:Ti.UI.SIZE,
+    width:Ti.UI.SIZE,
+    zIndex:<span class="hljs-number">0</span>,
+    color: <span class="hljs-string">"#f9f9f9"</span>,
+    backgroundColor:<span class="hljs-string">"#444"</span>,
+    font: {
+        fontFamily:<span class="hljs-string">'Helvetica Neue'</span>,
+        fontSize:<span class="hljs-number">16</span>,
+        fontWeight:<span class="hljs-string">'bold'</span>
+    },
+    message: <span class="hljs-string">'Loading...'</span>,
+    style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+};
+
+exports.tagLabel = {
+    <span class="hljs-string">"width"</span>:<span class="hljs-number">250</span>,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">50</span>,
+    <span class="hljs-string">"top"</span>:<span class="hljs-number">5</span>,
+    <span class="hljs-string">"left"</span>:<span class="hljs-number">60</span>,
+    <span class="hljs-string">"color"</span>:<span class="hljs-string">"#222"</span>,
+    <span class="hljs-string">"font"</span>:{
+        <span class="hljs-string">"fontSize"</span>:<span class="hljs-number">16</span>,
+        <span class="hljs-string">"fontWeight"</span>:<span class="hljs-string">"bold"</span>
+    }
+};
+exports.iconImage = {
+    top:<span class="hljs-number">5</span>,
+    left:<span class="hljs-number">5</span>,
+    width:<span class="hljs-number">40</span>,
+    height:<span class="hljs-number">40</span>
+};
+
+exports.headerView = {
+  width:Ti.UI.FULL,
+  height:<span class="hljs-number">60</span>
+};
+
+exports.headerTitle = {
+  top:<span class="hljs-string">"50%"</span>,
+  left:<span class="hljs-number">10</span>,
+  width:<span class="hljs-string">"90%"</span>,
+  font:{
+    fontSize:<span class="hljs-string">"20%"</span>
+  }
+};
+</code></pre>
+<h3 id="qiita-js">qiita.js</h3>
+<p>従来あったgetItems()という関数内でアクセスする先のURLを<strong><a href="https://qiita.com/api/v1/items" target="_blank">https://qiita.com/api/v1/items</a></strong>から<strong><a href="https://qiita.com/api/v1/tags" target="_blank">https://qiita.com/api/v1/tags</a></strong>に変更することでタグ一覧情報を取得する処理が実装できます。
+そのためgetItems()とgetTags()はアクセス先のURLが異なるだけで、それ以外の処理は共通化できるため、</p>
+<ul>
+<li>外部から呼び出せる関数<ul>
+<li>getItems()</li>
+<li>getTags()</li>
+</ul>
+</li>
+<li>qiita.jsの内部だけで参照できる関数<ul>
+<li>requestToQiitaAPI()</li>
+</ul>
+</li>
+</ul>
+<p>という形で実装をしてます。</p>
+<pre><code class="lang-javascript">exports.getLocalJSON = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  <span class="hljs-keyword">var</span> sample,file,body;
+  sample = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, <span class="hljs-string">"sample.json"</span>);
+  file = sample.read().toString();
+  body = <span class="hljs-built_in">JSON</span>.parse(file);
+  <span class="hljs-keyword">return</span> body;
+};
+
+exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span>{</span>
+    <span class="hljs-keyword">var</span> qiitaURL = <span class="hljs-string">"https://qiita.com/api/v1/items"</span>;
+    requestToQiitaAPI(qiitaURL,callback);
+};
+
+exports.getTags = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span>{</span>
+    <span class="hljs-keyword">var</span> qiitaURL = <span class="hljs-string">'https://qiita.com/api/v1/tags'</span>;
+    requestToQiitaAPI(qiitaURL,callback);
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">requestToQiitaAPI</span><span class="hljs-params">(qiitaURL,callback)</span>{</span>
+    <span class="hljs-keyword">var</span> xhr,method;
+    method = <span class="hljs-string">"GET"</span>;
+    xhr = Ti.Network.createHTTPClient();
+    xhr.open(method,qiitaURL);
+    xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        <span class="hljs-keyword">var</span> body;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-number">200</span>) {
+            body = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
+            callback(body);
+        } <span class="hljs-keyword">else</span> {
+            Ti.API.info(<span class="hljs-string">"error:status code is "</span> + <span class="hljs-keyword">this</span>.status);
+        }
+    };
+    xhr.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+        <span class="hljs-keyword">var</span> error;
+        error = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
+        Ti.API.info(error.error);
+    };
+    xhr.timeout = <span class="hljs-number">5000</span>;
+    xhr.send();
+}
+</code></pre>
+<h3 id="mainwindow-js">mainWindow.js</h3>
+<p>ここは修正箇所が多いので、まずは実装する関数の対応関係について簡単にまとめます</p>
+<ul>
+<li>外部から呼び出せる関数<ul>
+<li>createWindow()</li>
+</ul>
+</li>
+<li>mainWindow.jsの内部だけで参照できる関数<ul>
+<li>initTableViewSection()<ul>
+<li>起動時のメインメニューとして利用するTableViewSectionを生成</li>
+</ul>
+</li>
+<li>createTagSection()<ul>
+<li><strong>タグから検索</strong>のラベルがクリックされた時に呼び出される関数で、QiitaAPI通じてタグ一覧を取得する</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>),
+    mainTable = Ti.UI.createTableView(style.mainTable),
+    actInd = Ti.UI.createActivityIndicator(style.actInd),
+    qiita = <span class="hljs-built_in">require</span>(<span class="hljs-string">"qiita"</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initTableViewSection</span><span class="hljs-params">(tableview)</span>{</span>
+    <span class="hljs-keyword">var</span> section,
+      headerView,
+      menuLit = [<span class="hljs-string">'投稿情報取得する'</span>,<span class="hljs-string">'タグから検索'</span>],
+      _i,
+      _len,
+      headerTitle,
+      rows = [];
+    <span class="hljs-keyword">for</span> (_i = <span class="hljs-number">0</span>, _len = menuLit.length; _i &lt; _len; _i++) {
+      headerView = Ti.UI.createView(style.headerView);
+      headerTitle = Ti.UI.createLabel(style.headerTitle);
+      headerTitle.text = menuLit[_i];
+      headerTitle.addEventListener(<span class="hljs-string">'click'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span>{</span>    <span class="hljs-comment">// (1) </span>
+        <span class="hljs-keyword">if</span>(e.source.text === <span class="hljs-string">"タグから検索"</span>){                 <span class="hljs-comment">// (2)</span>
+              actInd.show();
+              qiita.getTags(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(tags)</span>{</span>
+                  <span class="hljs-keyword">var</span> section = createTagSection(tags);      <span class="hljs-comment">// (3)</span>
+                  tableview.insertSectionAfter(<span class="hljs-number">1</span>,section); <span class="hljs-comment">// (4)</span>
+                  actInd.hide();
+              });
+        }
+      });
+      headerView.add(headerTitle);
+
+      section = Ti.UI.createTableViewSection({<span class="hljs-string">"headerView"</span>:headerView});
+      rows.push(section);
+
+    }
+  tableview.setData(rows);
+
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createTagSection</span><span class="hljs-params">(tags)</span>{</span>                          <span class="hljs-comment">// (5)</span>
+    <span class="hljs-keyword">var</span> section,_i,_len,style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>),row,tagLabel,iconImage;
+    section = Ti.UI.createTableViewSection();
+    <span class="hljs-keyword">for</span> (_i = <span class="hljs-number">0</span>, _len = tags.length; _i &lt; _len; _i++) {
+        row = Ti.UI.createTableViewRow(style.tagRow);
+        tagLabel = Ti.UI.createLabel(style.tagLabel);
+        iconImage = Ti.UI.createImageView(style.iconImage);
+        tagLabel.text = tags[_i].name;
+        iconImage.image = tags[_i].icon_url;
+        row.add(tagLabel);
+        row.add(iconImage);
+        section.add(row);
+    }
+    <span class="hljs-keyword">return</span> section;
+} 
+exports.createWindow = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">var</span> win = Ti.UI.createWindow({
+        title:<span class="hljs-string">"QiitaViewer"</span>
+    });
+    win.add(mainTable);
+    win.add(actInd);
+    initTableViewSection(mainTable);
+    <span class="hljs-keyword">return</span> win;
+};
+</code></pre>
+<ol>
+<li>TableViewSectionのカスタムヘッダーに設定したTi.UI.Labelにイベントリスナーを割り当てます。</li>
+<li>上記割り当てたイベントリスナーで今回は<strong>タグから検索</strong>がタッチされた時のみイベントを発火させたいため、e.source.textの値をチェックした上で処理を実施</li>
+<li>qiita.getTags()関数を利用して、QiitaのWebAPIからタグ一覧情報を取得出来て変数tagsに格納されているため、その変数tagsを後述するcreateTagSection()に引き渡して、タグ一覧情報を生成する</li>
+<li>Ti.UI.TablViewのinsertSectionAfter()を利用して、<strong>タグから検索</strong>の行の後に、タグ一覧の情報を挿入する</li>
+<li>QiitaのWebAPIから取得したタグの件数（デフォルトでは20件）分、ループ処理して、タグの画像とタグのタイトル名を配置したTableViewRowを生成しつつ、そのTableViewRowをタグ一覧用に表示するためのTableViewSectionに順番に追加していく</li>
+</ol>
 
                 
                 </section>
