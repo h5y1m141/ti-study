@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# book: http://ogp.me/ns/book#">
         
         <meta charset="UTF-8">
-        <title>データ取得処理も別ファイルにする | Tistudy</title>
+        <title>スクロールしたら追加の情報を読み込む:アイデア編 | Tistudy</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -13,13 +13,13 @@
         <meta name="generator" content="www.gitbook.io">
 
         
-        <link rel="next" href="../../TitaniumClassicAdvance/tableViewTips/README.html" />
+        <link rel="next" href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRowsImplement.html" />
         
         
-        <link rel="prev" href="../../TitaniumClassicAdvance/fileSeparate/howToSeparate.html" />
+        <link rel="prev" href="../../TitaniumClassicAdvance/tableViewTips/pullToRefresh.html" />
         
 
-        <meta property="og:title" content="データ取得処理も別ファイルにする | Tistudy">
+        <meta property="og:title" content="スクロールしたら追加の情報を読み込む:アイデア編 | Tistudy">
         <meta property="og:site_name" content="Tistudy">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -40,7 +40,7 @@
     </head>
     <body>
         
-<div class="book" data-github="h5y1m141/tistudy" data-level="8.3">
+<div class="book" data-github="h5y1m141/tistudy" data-level="9.2">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="https://github.com/h5y1m141/tistudy" target="_blank" class="btn pull-left"><i class="fa fa-github-alt"></i></a>
@@ -68,7 +68,7 @@
             <a href="https://github.com/h5y1m141/tistudy/issues" target="blank">Questions and Issues</a>
         </li>
         <li>
-            <a href="https://github.com/h5y1m141/tistudy/edit/master/TitaniumClassicAdvance/fileSeparate/defineModel.md" target="blank">Edit and Contribute</a>
+            <a href="https://github.com/h5y1m141/tistudy/edit/master/TitaniumClassicAdvance/tableViewTips/addAnotherRowsIdea.md" target="blank">Edit and Contribute</a>
         </li>
         <li class="divider"></li>
         <li data-level="0">
@@ -452,7 +452,7 @@
         <div class="page-wrapper">
             <div class="book-progress">
     <div class="bar">
-        <div class="inner" style="width: 86.84210526315789%;min-width: 84.21052631578948%;"></div>
+        <div class="inner" style="width: 94.73684210526316%;min-width: 92.10526315789474%;"></div>
     </div>
     <div class="chapters">
     
@@ -524,11 +524,11 @@
     
         <a href="../../TitaniumClassicAdvance/fileSeparate/defineModel.html" title="データ取得処理も別ファイルにする" class="chapter done " data-progress="8.3" style="left: 86.84210526315789%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/README.html" title="TableViewを一工夫して利用する" class="chapter  new-chapter" data-progress="9" style="left: 89.47368421052632%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/README.html" title="TableViewを一工夫して利用する" class="chapter done new-chapter" data-progress="9" style="left: 89.47368421052632%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/pullToRefresh.html" title="引っ張って更新処理を実装する" class="chapter  " data-progress="9.1" style="left: 92.10526315789474%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/pullToRefresh.html" title="引っ張って更新処理を実装する" class="chapter done " data-progress="9.1" style="left: 92.10526315789474%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRowsIdea.html" title="スクロールしたら追加の情報を読み込む:アイデア編" class="chapter  " data-progress="9.2" style="left: 94.73684210526316%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRowsIdea.html" title="スクロールしたら追加の情報を読み込む:アイデア編" class="chapter done " data-progress="9.2" style="left: 94.73684210526316%;"></a>
     
         <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRowsImplement.html" title="スクロールしたら追加の情報を読み込む:実装編" class="chapter  " data-progress="9.3" style="left: 97.36842105263158%;"></a>
     
@@ -539,127 +539,50 @@
 
             <div class="page-inner">
             
-                <section class="normal" id="section-gitbook_23">
+                <section class="normal" id="section-gitbook_30">
                 
-                    <h1 id="-">データ取得処理も別ファイルにする</h1>
+                    <h1 id="-">スクロールしたら追加の情報を読み込む:アイデア編</h1>
 <h2 id="-">はじめに</h2>
-<p>さきほどは、UI生成処理を別ファイルにしました。ソースコードの保守性をあげる最後の仕上げとして表示するデータ取得部分についても別のファイルに切り出します。</p>
-<p>Resources直下に、qiita.jsというファイルを新規に作成します。作成後は以下の様なフォルダ構成になるかと思います。</p>
-<pre><code class="lang-sh">├── CHANGELOG<span class="hljs-preprocessor">.txt</span>
-├── LICENSE
-├── LICENSE<span class="hljs-preprocessor">.txt</span>
-├── README
-├── Resources
-│   ├── KS_nav_ui<span class="hljs-preprocessor">.png</span>
-│   ├── KS_nav_views<span class="hljs-preprocessor">.png</span>
-│   ├── app<span class="hljs-preprocessor">.js</span>
-│   ├── iphone
-│   ├── mainWindow<span class="hljs-preprocessor">.js</span>
-│   ├── qiita<span class="hljs-preprocessor">.js</span>
-│   ├── sample<span class="hljs-preprocessor">.json</span>
-│   └── style<span class="hljs-preprocessor">.js</span>
-├── build
-│   └── iphone
-├── manifest
-└── tiapp<span class="hljs-preprocessor">.xml</span>
-</code></pre>
-<p>それぞれの役割を図にまとめると以下のようになります。</p>
-<p><img src="../../image/TitaniumClassicAdvance-fileSeparate-defineModel-overview.png" alt=""></p>
-<p>先ほど作成したstyle.js、mainWindow.jsはそのまま活用します。app.jsからデータ取得する部分を切り出して、その処理をqiita.jsに振り分けますが、以下にコードを示しながら順番に解説します。</p>
-<h2 id="app-js-">app.jsの役割</h2>
-<p>先程までは、あらかじめローカルに準備してあるsample.jsonを読み込む処理をapp.js内で実装していましたが、app.jsは、起動時に必要なファイル群を読み込むだけにしたいためこの処理を分割します。</p>
-<h3 id="app-js-">app.jsの中身</h3>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> qiita,body,win,mainWindow;
-qiita = <span class="hljs-built_in">require</span>(<span class="hljs-string">"qiita"</span>);     <span class="hljs-comment">//(1)</span>
-body = qiita.getLocalJSON();  <span class="hljs-comment">//(2)</span>
-mainWindow = <span class="hljs-built_in">require</span>(<span class="hljs-string">"mainWindow"</span>);
-win = mainWindow.createWindow(<span class="hljs-string">'Qiita Viewer'</span>,body);
-win.open();
-</code></pre>
-<h3 id="app-js-">app.jsのソースコード解説</h3>
-<ol>
-<li>データを読み込む処理をqiita.jsに実装しておりその機能を読み込みます。</li>
-<li>qiita.jsで定義してるgetLocalJSON()関数を呼び出して、ローカルのsample.jsonを読み込みます。</li>
-</ol>
-<h2 id="qiita-js-">qiita.jsの役割</h2>
-<p>qiita.jsは、ローカルのsample.jsonを読み込む処理をgetLocalJSON()という関数として実装します。処理としてはapp.jsに記述していたコードをgetLocalJSON()にそのまま移動したような形になります。</p>
-<h3 id="qiita-js-">qiita.jsの中身</h3>
-<pre><code class="lang-javascript">exports.getLocalJSON = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
-  <span class="hljs-keyword">var</span> sample,file,body;
-  sample = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, <span class="hljs-string">"sample.json"</span>);
-  file = sample.read().toString();
-  body = <span class="hljs-built_in">JSON</span>.parse(file);
-  <span class="hljs-keyword">return</span> body;
-};
-</code></pre>
-<h2 id="qiita-js-">qiita.jsを拡張する</h2>
-<p>ここまでの処理をふまえて、応用編としてqiita.jsを拡張してみましょう。</p>
-<p><a href="TitaniumClassic/httpclient/withTableView.html">取得したQiitaの投稿情報をTableViewを使って画面表示する</a>で紹介したhttpCLientを活用してQiitaの投稿情報を取得する機能をqiita.jsに実装してみます。</p>
-<p>具体的には呼び出す側のapp.jsから</p>
+<p>私が作ったTiQiitaのユーザーインターフェースでは画面下部までスクロールしたら、追加の投稿情報を読み超えるようにボタンを配置してます。(以下キャプチャーの赤枠で囲った部分）</p>
+<p><img src="../../image/tableViewTips-addAnotherRows01.png" alt="Qiitaの画面イメージ"></p>
+<p>タイムラインのようなユーザインタフェースを持ったアプリケーションではこういう追加で読み込む処理は必須なものかと思いますが、Titanium Mobileでこれを実現する方法について解説します</p>
+<h2 id="-">実装方法のアイデア</h2>
+<p>TableViewを使って情報の追加を行う場合にいくつかのアプローチが考えられそうです。</p>
 <ul>
-<li>ローカルのsample.jsonを読み込む場合</li>
-<li>QiitaのWebAPIを通じて情報を取得する</li>
+<li><p><a href="http://docs.appcelerator.com/titanium/3.0/#!/api/Titanium.UI.TableView-method-insertRowAfter" target="_blank">TableViewにあるInsertRowAfterメソッド</a>を使い、最後のRowの後に１つづつRowを追加する</p>
+</li>
+<li><p>すでに取得した投稿情報を何らかの形でローカルにキャッシュしておき、追加で読み込んだ情報と結合して<a href="http://docs.appcelerator.com/titanium/3.0/#!/api/Titanium.UI.TableView-method-setData" target="_blank">TableViewにあるSetDataメソッド</a>を使い、TableViewのRowのデータを全て再更新する</p>
+</li>
+<li><p>WebAPIにアクセスする度に<a href="http://docs.appcelerator.com/titanium/3.0/#!/api/Titanium.UI.TableViewSection" target="_blank">TableViewSection</a>を作成して処理をする</p>
+</li>
 </ul>
-<p>という２つのことが出来ることを目指します</p>
-<h3 id="qiita-js-">qiita.jsを編集する</h3>
-<p>これまで作ったqiita.jsに、一部処理を加えます。</p>
-<pre><code class="lang-javascript">exports.getLocalJSON = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
-  <span class="hljs-keyword">var</span> sample,file,body;
-  sample = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, <span class="hljs-string">"sample.json"</span>);
-  file = sample.read().toString();
-  body = <span class="hljs-built_in">JSON</span>.parse(file);
-  <span class="hljs-keyword">return</span> body;
-};
-<span class="hljs-comment">// 今回拡張する機能</span>
-exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span>{</span>
-    <span class="hljs-keyword">var</span> xhr,qiitaURL,method;
-    qiitaURL = <span class="hljs-string">"https://qiita.com/api/v1/items"</span>;
-    method = <span class="hljs-string">"GET"</span>;
-    xhr = Ti.Network.createHTTPClient();
-    xhr.open(method,qiitaURL);
-    xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
-        <span class="hljs-keyword">var</span> body;
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-number">200</span>) {
-            body = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
-            callback(<span class="hljs-string">'ok'</span>,body);
-        } <span class="hljs-keyword">else</span> {
-            Ti.API.info(<span class="hljs-string">"error:status code is "</span> + <span class="hljs-keyword">this</span>.status);
-        }
-    };
-    xhr.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
-        <span class="hljs-keyword">var</span> error;
-        error = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
-        Ti.API.info(error.error);
-    };
-    xhr.timeout = <span class="hljs-number">5000</span>;
-    xhr.send();
-};
-</code></pre>
-<h3 id="-">拡張した処理の解説</h3>
-<p>上記の中でポイントになる箇所だけ抜粋します</p>
-<pre><code class="lang-javascript">exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span>{</span>    <span class="hljs-comment">// (1)</span>
-  xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
-  <span class="hljs-keyword">var</span> body;
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-number">200</span>) {              <span class="hljs-comment">// (2)</span>
-    body = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
-    callback(<span class="hljs-string">'ok'</span>,body);                  <span class="hljs-comment">// (3)</span>
-  }
-  <span class="hljs-comment">//  以下省略 </span>
-};
-</code></pre>
-<ol>
-<li>通信処理が成功した場合に、取得した投稿情報を次の処理に渡したいためその処理名の引数を設定します。</li>
-<li>通信が成功したかどうか判定するために、this.statusの値をチェックします。statusの値が200の場合には処理が成功してるのでそれ以降の処理を実行します。</li>
-<li>引数callbackに、2つの値を渡します</li>
-</ol>
-<h2 id="-">まとめ</h2>
-<ul>
-<li>UIを生成する処理をmainWindow.jsで定義</li>
-<li>データ取得する部分の処理をqiita.jsに定義</li>
-<li>app.jsは上記２つを連携する処理に特化</li>
-</ul>
-<p>というように役割毎にファイルを分割することで、構造として理解しやすくなり、結果としてソースコードの見通しがよくなると思います。</p>
-<p>TitaniumのClassicの環境でもこのようにファイルに分割することで、後述するAlloyを利用したアプリケーション開発にもスムーズに着手できるようになるかと思いますのでこのような形で役割毎にファイル分割して開発していくことをおすすめします。</p>
+<p>上記３点についてどういう実装イメージになるのか以下に図解します。</p>
+<h3 id="tableview-insertrowafter-">TableViewにあるInsertRowAfterメソッドを活用するイメージ</h3>
+<p>現在のRowの件数を調べる</p>
+<p><img src="../../image/tableViewTips-addAnotherRows-InsertRowAfter01.png" alt=""></p>
+<p>Rowの件数−１をした所が最後のindexになるのでそれを取得した上でinsertRowAfterの引数にそのindex値を指定する。</p>
+<p><img src="../../image/tableViewTips-addAnotherRows-InsertRowAfter02.png" alt=""></p>
+<h3 id="tableview-setdata-">TableViewにあるSetDataメソッドを活用</h3>
+<p>起動時に取得した投稿情報を何らかの形でローカルにキャッシュする</p>
+<p><img src="../../image/tableViewTips-addAnotherRows-setData01.png" alt=""></p>
+<p>追加で読み込んだ情報の配列と既存の情報の配列を結合する</p>
+<p><img src="../../image/tableViewTips-addAnotherRows-setData02.png" alt=""></p>
+<p>結合した情報を１件づつ読み込みながらTableViewRowを作成しRowのデータを配列に格納する</p>
+<p><img src="../../image/tableViewTips-addAnotherRows-setData03.png" alt=""></p>
+<p>setData()で③で生成した配列を指定してTableViewを再描画する</p>
+<p><img src="../../image/tableViewTips-addAnotherRows-setData04.png" alt=""></p>
+<h3 id="tableviewsection-">TableViewSectionで投稿情報別に区切るイメージ</h3>
+<p>まず、起動時に投稿情報を読み込みTableViewを作成</p>
+<p><img src="../../image/tableViewTips-addAnotherRows-TableViewSection01.png" alt=""></p>
+<p>※TableView作成する際には、TableViewSectionを作成しそこに順番にRowを追加して最初の投稿情報を処理するイメージです。</p>
+<p><img src="../../image/tableViewTips-addAnotherRows-TableViewSection02.png" alt=""></p>
+<p>追加で読み込んだ情報は別途TableViewSectionを生成してそこに順番にRowを追加したものを、最初のSectionの後に挿入します。</p>
+<p>この段階での処理イメージとしては、投稿情報表示するTableViewには２つのTableViewSectionがありそれぞれに任意の件数の投稿情報が配置されたTableViewRowが配置されているイメージになります</p>
+<p><img src="../../image/tableViewTips-addAnotherRows-TableViewSection03.png" alt=""></p>
+<h2 id="-">どのアイデアを採択するか？</h2>
+<p>上記３点取り上げましたが、３番目のTableViewSectionで投稿情報別に区切るイメージが一番シンプルな実装方法なのでこれについて解説します。</p>
+<p>なお、私が作ってるTiQiitaでは２番めのアイデアを採用してますが、この方法の実装では配列の結合処理、ローカルのキャッシュ処理など多岐にわたった知識が必要になることもあるため、取り上げませんでした。</p>
+<p>次の賞で、具体的な実装方法について解説します。</p>
 
                 
                 </section>
@@ -670,7 +593,7 @@ exports.getItems = <span class="hljs-function"><span class="hljs-keyword">functi
     
         
             
-            <a href="../../TitaniumClassicAdvance/tableViewTips/README.html" class="navigation-link next">Next</a>
+            <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRowsImplement.html" class="navigation-link next">Next</a>
             
         
     

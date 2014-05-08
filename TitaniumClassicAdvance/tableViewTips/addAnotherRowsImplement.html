@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# book: http://ogp.me/ns/book#">
         
         <meta charset="UTF-8">
-        <title>データ取得処理も別ファイルにする | Tistudy</title>
+        <title>スクロールしたら追加の情報を読み込む:実装編 | Tistudy</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -13,13 +13,13 @@
         <meta name="generator" content="www.gitbook.io">
 
         
-        <link rel="next" href="../../TitaniumClassicAdvance/tableViewTips/README.html" />
+        <link rel="next" href="../../TitaniumClassicAdvance/tableViewTips/collapse-or-expand-menu.html" />
         
         
-        <link rel="prev" href="../../TitaniumClassicAdvance/fileSeparate/howToSeparate.html" />
+        <link rel="prev" href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRowsIdea.html" />
         
 
-        <meta property="og:title" content="データ取得処理も別ファイルにする | Tistudy">
+        <meta property="og:title" content="スクロールしたら追加の情報を読み込む:実装編 | Tistudy">
         <meta property="og:site_name" content="Tistudy">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -40,7 +40,7 @@
     </head>
     <body>
         
-<div class="book" data-github="h5y1m141/tistudy" data-level="8.3">
+<div class="book" data-github="h5y1m141/tistudy" data-level="9.3">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="https://github.com/h5y1m141/tistudy" target="_blank" class="btn pull-left"><i class="fa fa-github-alt"></i></a>
@@ -68,7 +68,7 @@
             <a href="https://github.com/h5y1m141/tistudy/issues" target="blank">Questions and Issues</a>
         </li>
         <li>
-            <a href="https://github.com/h5y1m141/tistudy/edit/master/TitaniumClassicAdvance/fileSeparate/defineModel.md" target="blank">Edit and Contribute</a>
+            <a href="https://github.com/h5y1m141/tistudy/edit/master/TitaniumClassicAdvance/tableViewTips/addAnotherRowsImplement.md" target="blank">Edit and Contribute</a>
         </li>
         <li class="divider"></li>
         <li data-level="0">
@@ -452,7 +452,7 @@
         <div class="page-wrapper">
             <div class="book-progress">
     <div class="bar">
-        <div class="inner" style="width: 86.84210526315789%;min-width: 84.21052631578948%;"></div>
+        <div class="inner" style="width: 97.36842105263158%;min-width: 94.73684210526316%;"></div>
     </div>
     <div class="chapters">
     
@@ -524,13 +524,13 @@
     
         <a href="../../TitaniumClassicAdvance/fileSeparate/defineModel.html" title="データ取得処理も別ファイルにする" class="chapter done " data-progress="8.3" style="left: 86.84210526315789%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/README.html" title="TableViewを一工夫して利用する" class="chapter  new-chapter" data-progress="9" style="left: 89.47368421052632%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/README.html" title="TableViewを一工夫して利用する" class="chapter done new-chapter" data-progress="9" style="left: 89.47368421052632%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/pullToRefresh.html" title="引っ張って更新処理を実装する" class="chapter  " data-progress="9.1" style="left: 92.10526315789474%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/pullToRefresh.html" title="引っ張って更新処理を実装する" class="chapter done " data-progress="9.1" style="left: 92.10526315789474%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRowsIdea.html" title="スクロールしたら追加の情報を読み込む:アイデア編" class="chapter  " data-progress="9.2" style="left: 94.73684210526316%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRowsIdea.html" title="スクロールしたら追加の情報を読み込む:アイデア編" class="chapter done " data-progress="9.2" style="left: 94.73684210526316%;"></a>
     
-        <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRowsImplement.html" title="スクロールしたら追加の情報を読み込む:実装編" class="chapter  " data-progress="9.3" style="left: 97.36842105263158%;"></a>
+        <a href="../../TitaniumClassicAdvance/tableViewTips/addAnotherRowsImplement.html" title="スクロールしたら追加の情報を読み込む:実装編" class="chapter done " data-progress="9.3" style="left: 97.36842105263158%;"></a>
     
         <a href="../../TitaniumClassicAdvance/tableViewTips/collapse-or-expand-menu.html" title="メニュー一覧→サブメニューを展開するようなユーザインタフェースを実現する方法" class="chapter  " data-progress="9.4" style="left: 100%;"></a>
     
@@ -539,70 +539,115 @@
 
             <div class="page-inner">
             
-                <section class="normal" id="section-gitbook_23">
+                <section class="normal" id="section-gitbook_31">
                 
-                    <h1 id="-">データ取得処理も別ファイルにする</h1>
-<h2 id="-">はじめに</h2>
-<p>さきほどは、UI生成処理を別ファイルにしました。ソースコードの保守性をあげる最後の仕上げとして表示するデータ取得部分についても別のファイルに切り出します。</p>
-<p>Resources直下に、qiita.jsというファイルを新規に作成します。作成後は以下の様なフォルダ構成になるかと思います。</p>
-<pre><code class="lang-sh">├── CHANGELOG<span class="hljs-preprocessor">.txt</span>
-├── LICENSE
-├── LICENSE<span class="hljs-preprocessor">.txt</span>
-├── README
-├── Resources
-│   ├── KS_nav_ui<span class="hljs-preprocessor">.png</span>
-│   ├── KS_nav_views<span class="hljs-preprocessor">.png</span>
-│   ├── app<span class="hljs-preprocessor">.js</span>
-│   ├── iphone
-│   ├── mainWindow<span class="hljs-preprocessor">.js</span>
-│   ├── qiita<span class="hljs-preprocessor">.js</span>
-│   ├── sample<span class="hljs-preprocessor">.json</span>
-│   └── style<span class="hljs-preprocessor">.js</span>
-├── build
-│   └── iphone
-├── manifest
-└── tiapp<span class="hljs-preprocessor">.xml</span>
-</code></pre>
-<p>それぞれの役割を図にまとめると以下のようになります。</p>
-<p><img src="../../image/TitaniumClassicAdvance-fileSeparate-defineModel-overview.png" alt=""></p>
-<p>先ほど作成したstyle.js、mainWindow.jsはそのまま活用します。app.jsからデータ取得する部分を切り出して、その処理をqiita.jsに振り分けますが、以下にコードを示しながら順番に解説します。</p>
-<h2 id="app-js-">app.jsの役割</h2>
-<p>先程までは、あらかじめローカルに準備してあるsample.jsonを読み込む処理をapp.js内で実装していましたが、app.jsは、起動時に必要なファイル群を読み込むだけにしたいためこの処理を分割します。</p>
-<h3 id="app-js-">app.jsの中身</h3>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> qiita,body,win,mainWindow;
-qiita = <span class="hljs-built_in">require</span>(<span class="hljs-string">"qiita"</span>);     <span class="hljs-comment">//(1)</span>
-body = qiita.getLocalJSON();  <span class="hljs-comment">//(2)</span>
+                    <h1 id="-">スクロールしたら追加の情報を読み込む:実装編</h1>
+<p>さきほどはスクロールしたら追加の情報を読み込む実現方法についていくつかご紹介をしたので、この章では実装方法について解説します。</p>
+<h2 id="-">実装のポイントをまずは解説</h2>
+<p>TableViewSectionで投稿情報別に区切る方法を実装していきます。実装自体はシンプルそうに見えるのですが、いくつかポイントになる箇所があるのでまずはその点について解説します。</p>
+<h3 id="qiita-webapi-">QiitaのWebAPIのページネーションについて</h3>
+<p>QiitaのWebAPIにリクエストを投げる時に、何ページ目の情報を何件取得するのかオプションで指定することが出来るページネーションの機能が備わってます。</p>
+<p>特にオプションの指定をせずに</p>
+<p><a href="https://qiita.com/api/v1/items" target="_blank">https://qiita.com/api/v1/items</a></p>
+<p>にアクセスすると、1ページ目の情報を20件取得する仕様になってます。（詳しくはQiitaのWeb APIのドキュメントを参照してください）</p>
+<p><a href="https://qiita.com/docs" target="_blank">https://qiita.com/docs</a></p>
+<p>例えば、2ページ目の情報を取得したい場合にはURLの末尾に<strong>?page=ページ名</strong>を付け加えます。具体的には以下のようにします。</p>
+<p><a href="https://qiita.com/api/v1/items?page=2" target="_blank">https://qiita.com/api/v1/items?page=2</a></p>
+<p>また、リクエスト辺りの取得件数を5件に制限したい場合には<strong>?per_page=件数</strong>とすることで処理ができます。具体的には以下のようにします。</p>
+<p><a href="https://qiita.com/api/v1/items?per_page=5" target="_blank">https://qiita.com/api/v1/items?per_page=5</a></p>
+<p>上記2つを組み合わせて利用することも出来ます。パラメータを組み合わせる場合には、&amp; で連結させます。以下は、2ページ目の情報を5件取得するという意味になります</p>
+<p><a href="https://qiita.com/api/v1/items?page=2&amp;per_page=5" target="_blank">https://qiita.com/api/v1/items?page=2&amp;per_page=5</a></p>
+<h3 id="tableviewsection-header-">TableViewSection作成時のheader指定について</h3>
+<p>1つのタイムラインのようなユーザインタフェースに見せるため、TableViewSection作成時にheaderViewやheaderTitleの設定は行わないようにします</p>
+<h3 id="-">画面下部までスクロールした時に発火させるイベント処理について</h3>
+<p>画面下部までスクロールした状態を検知するのにscrollEnd イベントを利用します。その際に</p>
+<ul>
+<li>WebAPIからデータを取得</li>
+<li>起動時に最初に表示するページ情報を保持しておきscrollEnd イベント発火のタイミングでその保持してるページ情報を1つ増加させる</li>
+<li>データ取得後にTableViewSectionを生成した上で投稿情報を追加する</li>
+</ul>
+<p>という処理を行うのですが、上記処理途中にスクロール出来る状態のままにしておくとscrollEndイベントが頻発してしまう可能性があります。</p>
+<p>それを防ぐためにTalbeViewのスクロールを一時的に利用不可にしつつ、処理途中であることを明示したほうが使い勝手の良いアプリケーションにつながると思います。</p>
+<h2 id="-">実装</h2>
+<p>これまで作ってきたアプリケーションをベースに開発をしていきます。</p>
+<h3 id="app-js-">app.jsのソースコード</h3>
+<p>app.jsはそのまま流用します。念のためソースコードを以下記載しておきます</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> mainWindow,win;
+
 mainWindow = <span class="hljs-built_in">require</span>(<span class="hljs-string">"mainWindow"</span>);
-win = mainWindow.createWindow(<span class="hljs-string">'Qiita Viewer'</span>,body);
+win = mainWindow.createWindow();    
 win.open();
 </code></pre>
-<h3 id="app-js-">app.jsのソースコード解説</h3>
-<ol>
-<li>データを読み込む処理をqiita.jsに実装しておりその機能を読み込みます。</li>
-<li>qiita.jsで定義してるgetLocalJSON()関数を呼び出して、ローカルのsample.jsonを読み込みます。</li>
-</ol>
-<h2 id="qiita-js-">qiita.jsの役割</h2>
-<p>qiita.jsは、ローカルのsample.jsonを読み込む処理をgetLocalJSON()という関数として実装します。処理としてはapp.jsに記述していたコードをgetLocalJSON()にそのまま移動したような形になります。</p>
-<h3 id="qiita-js-">qiita.jsの中身</h3>
-<pre><code class="lang-javascript">exports.getLocalJSON = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
-  <span class="hljs-keyword">var</span> sample,file,body;
-  sample = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, <span class="hljs-string">"sample.json"</span>);
-  file = sample.read().toString();
-  body = <span class="hljs-built_in">JSON</span>.parse(file);
-  <span class="hljs-keyword">return</span> body;
+<h3 id="style-js-">style.jsのソースコード</h3>
+<p>引っ張って更新処理を実装するで利用したソースコードをそのまま流用します。念のためソースコードを以下記載しておきます</p>
+<pre><code class="lang-javascript">exports.mainTable = {
+    <span class="hljs-string">"width"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"height"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"backgroundColor"</span>: <span class="hljs-string">"#fff"</span>,
+    <span class="hljs-string">"separatorColor"</span>: <span class="hljs-string">"#ccc"</span>,
+    <span class="hljs-string">"left"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"top"</span>: <span class="hljs-number">0</span>
+};
+exports.row = {
+    <span class="hljs-string">"width"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">60</span>,
+    <span class="hljs-string">"borderWidth"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"className"</span>:<span class="hljs-string">"entry"</span>
+};
+exports.iconImage = {
+    top:<span class="hljs-number">5</span>,
+    left:<span class="hljs-number">5</span>,
+    width:<span class="hljs-number">40</span>,
+    height:<span class="hljs-number">40</span>
+};
+exports.textLabel = {
+    <span class="hljs-string">"width"</span>:<span class="hljs-number">250</span>,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">50</span>,
+    <span class="hljs-string">"top"</span>:<span class="hljs-number">5</span>,
+    <span class="hljs-string">"left"</span>:<span class="hljs-number">60</span>,
+    <span class="hljs-string">"color"</span>:<span class="hljs-string">"#222"</span>,
+    <span class="hljs-string">"font"</span>:{
+        <span class="hljs-string">"fontSize"</span>:<span class="hljs-number">16</span>,
+        <span class="hljs-string">"fontWeight"</span>:<span class="hljs-string">"bold"</span>
+    }
+};
+<span class="hljs-comment">// 引っ張って更新処理中の色を指定</span>
+exports.refreshControl = {
+    tintColor:<span class="hljs-string">'red'</span>    
+};
+
+<span class="hljs-comment">// QiitaのWebAPIから情報を読み込んでいる状態を示すために ActivityIndicatorを配置しためので</span>
+<span class="hljs-comment">// その設定値</span>
+exports.actInd = {
+    top:<span class="hljs-string">"20%"</span>,
+    left:<span class="hljs-string">"30%"</span>,
+    height:Ti.UI.SIZE,
+    width:Ti.UI.SIZE,
+    zIndex:<span class="hljs-number">0</span>,
+    color: <span class="hljs-string">"#f9f9f9"</span>,
+    backgroundColor:<span class="hljs-string">"#444"</span>,
+    font: {
+        fontFamily:<span class="hljs-string">'Helvetica Neue'</span>,
+        fontSize:<span class="hljs-number">16</span>,
+        fontWeight:<span class="hljs-string">'bold'</span>
+    },
+    message: <span class="hljs-string">'Loading...'</span>,
+    style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK
 };
 </code></pre>
-<h2 id="qiita-js-">qiita.jsを拡張する</h2>
-<p>ここまでの処理をふまえて、応用編としてqiita.jsを拡張してみましょう。</p>
-<p><a href="TitaniumClassic/httpclient/withTableView.html">取得したQiitaの投稿情報をTableViewを使って画面表示する</a>で紹介したhttpCLientを活用してQiitaの投稿情報を取得する機能をqiita.jsに実装してみます。</p>
-<p>具体的には呼び出す側のapp.jsから</p>
-<ul>
-<li>ローカルのsample.jsonを読み込む場合</li>
-<li>QiitaのWebAPIを通じて情報を取得する</li>
-</ul>
-<p>という２つのことが出来ることを目指します</p>
-<h3 id="qiita-js-">qiita.jsを編集する</h3>
-<p>これまで作ったqiita.jsに、一部処理を加えます。</p>
+<h3 id="qiita-js-">qiita.jsのソースコード</h3>
+<p>QiitaのWebAPIにアクセスする際に何ページ目を取得するのか指定する必要があります。関数の引数にページ番号を設定し、かつ、QiitaのWebAPIへのアクセス時にページ番号のオプションを指定します</p>
+<h4 id="-">変更前</h4>
+<pre><code class="lang-javascript">exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span>{</span>
+    <span class="hljs-keyword">var</span> xhr,qiitaURL,method;
+    qiitaURL = <span class="hljs-string">"https://qiita.com/api/v1/items"</span>;
+</code></pre>
+<h4 id="-">変更後</h4>
+<pre><code class="lang-javascript">exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(page,callback)</span>{</span>
+    <span class="hljs-keyword">var</span> xhr,qiitaURL,method;
+    qiitaURL = <span class="hljs-string">"https://qiita.com/api/v1/items?page="</span> + page;
+</code></pre>
+<p>最終的には以下のようになります</p>
 <pre><code class="lang-javascript">exports.getLocalJSON = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
   <span class="hljs-keyword">var</span> sample,file,body;
   sample = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, <span class="hljs-string">"sample.json"</span>);
@@ -611,9 +656,10 @@ win.open();
   <span class="hljs-keyword">return</span> body;
 };
 <span class="hljs-comment">// 今回拡張する機能</span>
-exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span>{</span>
+exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(page,callback)</span>{</span>
     <span class="hljs-keyword">var</span> xhr,qiitaURL,method;
-    qiitaURL = <span class="hljs-string">"https://qiita.com/api/v1/items"</span>;
+    qiitaURL = <span class="hljs-string">"https://qiita.com/api/v1/items?page="</span> + page;
+    Ti.API.info(<span class="hljs-string">"qiitaURL is"</span> + qiitaURL);
     method = <span class="hljs-string">"GET"</span>;
     xhr = Ti.Network.createHTTPClient();
     xhr.open(method,qiitaURL);
@@ -621,6 +667,7 @@ exports.getItems = <span class="hljs-function"><span class="hljs-keyword">functi
         <span class="hljs-keyword">var</span> body;
         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-number">200</span>) {
             body = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
+            Ti.API.info(<span class="hljs-string">"number is :"</span> + body.length);
             callback(<span class="hljs-string">'ok'</span>,body);
         } <span class="hljs-keyword">else</span> {
             Ti.API.info(<span class="hljs-string">"error:status code is "</span> + <span class="hljs-keyword">this</span>.status);
@@ -635,31 +682,100 @@ exports.getItems = <span class="hljs-function"><span class="hljs-keyword">functi
     xhr.send();
 };
 </code></pre>
-<h3 id="-">拡張した処理の解説</h3>
-<p>上記の中でポイントになる箇所だけ抜粋します</p>
-<pre><code class="lang-javascript">exports.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span>{</span>    <span class="hljs-comment">// (1)</span>
-  xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
-  <span class="hljs-keyword">var</span> body;
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-number">200</span>) {              <span class="hljs-comment">// (2)</span>
-    body = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
-    callback(<span class="hljs-string">'ok'</span>,body);                  <span class="hljs-comment">// (3)</span>
-  }
-  <span class="hljs-comment">//  以下省略 </span>
+<h3 id="mainwindow-js-">mainWindow.jsのソースコード</h3>
+<p>ユーザインタフェース側の処理が多くなるため、上記3つと比較すると少し長くなりますが、先にソースコード全体を以下に記載します。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>),
+    mainTable = Ti.UI.createTableView(style.mainTable),
+    actInd = Ti.UI.createActivityIndicator(style.actInd),
+    qiita = <span class="hljs-built_in">require</span>(<span class="hljs-string">"qiita"</span>),
+    pageNumber  = <span class="hljs-number">1</span>, <span class="hljs-comment">//  (1)</span>
+    pageSection = <span class="hljs-number">0</span>; <span class="hljs-comment">//  (2)</span>
+
+exports.createWindow = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">var</span> win = Ti.UI.createWindow({
+        title:<span class="hljs-string">"QiitaViewer"</span>
+    });
+
+
+    getQiitaItems(pageNumber,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(items)</span>{</span>         <span class="hljs-comment">// (3)</span>
+        <span class="hljs-keyword">var</span> section = Ti.UI.createTableViewSection();
+        Ti.API.info(<span class="hljs-string">"起動時にWebAPIからデータを取得しました"</span>);
+        mainTable.setData([createSection(items,section)]); <span class="hljs-comment">// (4)</span>
+        pageNumber++;
+    });
+    win.add(mainTable);
+    win.add(actInd);
+    <span class="hljs-keyword">return</span> win;
+};
+
+mainTable.addEventListener(<span class="hljs-string">'scrollEnd'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span>{</span>
+  <span class="hljs-comment">// (5)</span>
+    mainTable.scrollable = <span class="hljs-literal">false</span>; 
+    mainTable.opacity = <span class="hljs-number">0.3</span>;
+
+    getQiitaItems(pageNumber,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(items)</span>{</span>  <span class="hljs-comment">// (6)</span>
+        <span class="hljs-keyword">var</span> section = Ti.UI.createTableViewSection(),
+        insertSection = createSection(items,section);  <span class="hljs-comment">// (7)        </span>
+        mainTable.insertSectionAfter(pageSection,insertSection);  <span class="hljs-comment">// (8)</span>
+    <span class="hljs-comment">// (9)</span>
+        mainTable.scrollable = <span class="hljs-literal">true</span>;
+        mainTable.opacity = <span class="hljs-number">1.0</span>;
+        pageNumber++;
+        pageSection++;
+
+    });
+});
+
+<span class="hljs-comment">// (10)</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getQiitaItems</span><span class="hljs-params">(page,callback)</span>{</span>
+    <span class="hljs-keyword">if</span> (Ti.Network.online === <span class="hljs-literal">false</span>){
+        alert(<span class="hljs-string">"利用されてるスマートフォンからインターネットに接続できないため情報が取得できません"</span>);
+    } <span class="hljs-keyword">else</span> {
+        actInd.show();
+        qiita.getItems(page,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(status,items)</span>{</span>
+            actInd.hide();
+            <span class="hljs-keyword">return</span> callback(items);
+        });
+    }
+
+};
+<span class="hljs-comment">// (11)</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createSection</span><span class="hljs-params">(items,section)</span>{</span>
+    <span class="hljs-keyword">var</span> _i,_len,style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>);
+    <span class="hljs-keyword">for</span> (_i = <span class="hljs-number">0</span>, _len = items.length; _i &lt; _len; _i++) {
+        row = Ti.UI.createTableViewRow(style.row);
+        textLabel = Ti.UI.createLabel(style.textLabel);
+        iconImage = Ti.UI.createImageView(style.iconImage);
+        iconImage.image = items[_i].user.profile_image_url;
+        textLabel.text = items[_i].title;
+        row.add(textLabel);
+        row.add(iconImage);
+        section.add(row);
+
+    }
+    <span class="hljs-keyword">return</span> section;
 };
 </code></pre>
+<h4 id="-">コード解説</h4>
 <ol>
-<li>通信処理が成功した場合に、取得した投稿情報を次の処理に渡したいためその処理名の引数を設定します。</li>
-<li>通信が成功したかどうか判定するために、this.statusの値をチェックします。statusの値が200の場合には処理が成功してるのでそれ以降の処理を実行します。</li>
-<li>引数callbackに、2つの値を渡します</li>
+<li>起動時に表示するページ数を設定</li>
+<li>TableViewSectionの挿入箇所となる変数を設定。</li>
+<li>起動時にWebAPIからデータを取得して投稿情報が取得できたらmainTableにセット</li>
+<li>QiitaのWebAPIから取得した投稿情報を引数にして後述するcreateSection関数を利用してTableViewSectionを生成し、それをTableView.setData()を利用してTableViewに反映させる</li>
+<li>scrollEndイベント発火した時に処理中であることを示すために、TableViewのscrollableの値をfalseに設定することで、スクロール出来ないように制御します。またその後のopacityの値をデフォルトの1.0から0に近い値（今回は0.3）に変更していますが、こうすることでTableView全体が少し暗くなり処理中であるというのが利用してるユーザさんにはより伝わりやすくなるかと思います。</li>
+<li>後述するgetQiitaItems関数を利用して、QiitaのWebAPIから投稿情報を取得します。</li>
+<li>QiitaのWebAPIから取得した投稿情報を引数にして後述するcreateSection関数を利用してTableViewSectionを生成しておきます</li>
+<li>TableViewのinsertSectionAfterメソッドを利用して上記7.で生成したTableViewSectionを挿入します。</li>
+<li>挿入処理が完了したので、TableViewのスクロール制御、透明度の設定をデフォルトの値に設定しなおしつつ、次に表示するページ数と、TableViewSectionの挿入箇所の変数をそれぞれ1つ増加させます</li>
+<li>引数にページ数を渡しqiita.getItems()を呼び出してQiitaのWeb APIから投稿情報を取得します。投稿情報取得できたらその値をコールバック関数に渡します</li>
+<li>引数にQiitaのWeb APIから取得できた投稿情報を渡して必要な要素が追加されたTableViewRowを順番に生成し、そのRowをTableViewSectionに順番に追加して、最後にそのTableViewSectionを返します</li>
 </ol>
-<h2 id="-">まとめ</h2>
-<ul>
-<li>UIを生成する処理をmainWindow.jsで定義</li>
-<li>データ取得する部分の処理をqiita.jsに定義</li>
-<li>app.jsは上記２つを連携する処理に特化</li>
-</ul>
-<p>というように役割毎にファイルを分割することで、構造として理解しやすくなり、結果としてソースコードの見通しがよくなると思います。</p>
-<p>TitaniumのClassicの環境でもこのようにファイルに分割することで、後述するAlloyを利用したアプリケーション開発にもスムーズに着手できるようになるかと思いますのでこのような形で役割毎にファイル分割して開発していくことをおすすめします。</p>
+<h2 id="-">最終的な実行結果</h2>
+<p>スクロール中の状態を画面キャプチャー取れないので見た目にはわかりづらいのですが以下のようになります。</p>
+<h3 id="iphone-">iPhoneでの実行イメージ</h3>
+<p><img src="../../image/tableViewTips-addAnotherRows-iPhone01.png" alt=""></p>
+<h3 id="android-">Androidでの実行イメージ</h3>
+<p><img src="../../image/tableViewTips-addAnotherRows-android01.png" alt=""></p>
 
                 
                 </section>
@@ -670,7 +786,7 @@ exports.getItems = <span class="hljs-function"><span class="hljs-keyword">functi
     
         
             
-            <a href="../../TitaniumClassicAdvance/tableViewTips/README.html" class="navigation-link next">Next</a>
+            <a href="../../TitaniumClassicAdvance/tableViewTips/collapse-or-expand-menu.html" class="navigation-link next">Next</a>
             
         
     
