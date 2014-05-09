@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# book: http://ogp.me/ns/book#">
         
         <meta charset="UTF-8">
-        <title>日付処理を便利に行えるMoment.js | Tistudy</title>
+        <title>配列操作を便利に行えるUnderscore.js | Tistudy</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -13,13 +13,13 @@
         <meta name="generator" content="www.gitbook.io">
 
         
-        <link rel="next" href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" />
+        <link rel="next" href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/useUnderscore.html" />
         
         
-        <link rel="prev" href="../../../TitaniumClassicAdvance/introduceJSLibrary/README.html" />
+        <link rel="prev" href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" />
         
 
-        <meta property="og:title" content="日付処理を便利に行えるMoment.js | Tistudy">
+        <meta property="og:title" content="配列操作を便利に行えるUnderscore.js | Tistudy">
         <meta property="og:site_name" content="Tistudy">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -40,7 +40,7 @@
     </head>
     <body>
         
-<div class="book" data-github="h5y1m141/tistudy" data-level="11">
+<div class="book" data-github="h5y1m141/tistudy" data-level="12">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="https://github.com/h5y1m141/tistudy" target="_blank" class="btn pull-left"><i class="fa fa-github-alt"></i></a>
@@ -68,7 +68,7 @@
             <a href="https://github.com/h5y1m141/tistudy/issues" target="blank">Questions and Issues</a>
         </li>
         <li>
-            <a href="https://github.com/h5y1m141/tistudy/edit/master/TitaniumClassicAdvance/introduceJSLibrary/moment/README.md" target="blank">Edit and Contribute</a>
+            <a href="https://github.com/h5y1m141/tistudy/edit/master/TitaniumClassicAdvance/introduceJSLibrary/underscore/README.md" target="blank">Edit and Contribute</a>
         </li>
         <li class="divider"></li>
         <li data-level="0">
@@ -444,7 +444,7 @@
         <div class="page-wrapper">
             <div class="book-progress">
     <div class="bar">
-        <div class="inner" style="width: 20.512820512820515%;min-width: 17.94871794871795%;"></div>
+        <div class="inner" style="width: 25.641025641025642%;min-width: 23.076923076923077%;"></div>
     </div>
     <div class="chapters">
     
@@ -466,9 +466,9 @@
     
         <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/README.html" title="日付処理を便利に行えるMoment.js" class="chapter done " data-progress="11" style="left: 20.512820512820515%;"></a>
     
-        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" title="QiitaのWebAPIと連携させるアプリでMoment.jsを使う" class="chapter  " data-progress="11.1" style="left: 23.076923076923077%;"></a>
+        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" title="QiitaのWebAPIと連携させるアプリでMoment.jsを使う" class="chapter done " data-progress="11.1" style="left: 23.076923076923077%;"></a>
     
-        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/README.html" title="配列操作を便利に行えるUnderscore.js" class="chapter  " data-progress="12" style="left: 25.641025641025642%;"></a>
+        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/README.html" title="配列操作を便利に行えるUnderscore.js" class="chapter done " data-progress="12" style="left: 25.641025641025642%;"></a>
     
         <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/useUnderscore.html" title="QiitaのWeb APIから取得したデータを投稿日別にグループ化して表示" class="chapter  " data-progress="12.1" style="left: 28.205128205128204%;"></a>
     
@@ -533,25 +533,20 @@
 
             <div class="page-inner">
             
-                <section class="normal" id="section-gitbook_26">
+                <section class="normal" id="section-gitbook_28">
                 
-                    <h1 id="-moment-js">日付処理を便利に行えるMoment.js</h1>
+                    <h1 id="-underscore-js">配列操作を便利に行えるUnderscore.js</h1>
 <h2 id="-">はじめに</h2>
-<p>WebAPIと連携するアプリケーションで以下のようにタイムラインビューを持ったユーザインタフェースの場合に、以下画面の赤枠で囲った部分のように<strong>何分前に投稿された情報なのか</strong>すぐにわかるようになってるケースが多いかと思います。</p>
-<p><img src="../../../image/introduceJSLibrary-moment01.png" alt="イメージ"></p>
-<p>QiitaのWebAPIでは、xx分前の情報かわかるような項目がすでに準備されているため、その値を表示するだけで済むのですが、必ずしも全てのWebAPIがこのようになってるとは限らず、<strong>2014/04/15 12:34:56</strong>というような形式でデータが返ってくる事のほうが主流かと思います。</p>
-<p>もしも、<strong>2014/04/15 12:34:56</strong>という形式のものをxx分前という形式に変更する場合には、現在の時刻の差分を計算してという処理を自分で書く必要が出てきます。</p>
-<p>Titanium Mobileでは、CommonJSスタイルで書かれたJavaScriptのライブラリはそのまま活用できることが多く、こういう日付処理に向いたライブラリとして、<a href="http://momentjs.com/" target="_blank">Moment.js</a>というものがあるのでそれを組み込むことで、面倒な日付計算が簡単にできるので、その紹介をします。</p>
-<h2 id="moment-js-">Moment.jsを利用するための事前準備</h2>
-<p><a href="http://momentjs.com/" target="_blank">Moment.js</a> のサイトからMinifiedされたファイルをダウンロードします。</p>
-<p><img src="../../../image/introduceJSLibrary-moment00.png" alt="iPhone"></p>
-<p>ダウンロードしたファイルを<strong>moment.min.jsからmoment.js</strong>に変更します。</p>
-<h3 id="-">日本語化するためのファイルを別途ダウンロードする</h3>
-<p>Moment.jsはデフォルトは英語表記なのですがi18n（internationalization。国際化）対応しているので、日本語表記をした別ファイルを準備することで手軽に日本語化も出来ます。</p>
-<p><a href="http://gti.jp" target="_blank">株式会社ジーティーアイ</a>の佐藤　毅 さんという方が作成した<a href="http://gti.jp/ajax/livestamp/moment.lang_ja.js" target="_blank">moment.lang_ja.js</a>をダウンロードして利用します。</p>
-<p>なお、moment.lang_ja.jsのファイル名だと手元の環境では、require()で読み込めなかったので<strong>momentja.js</strong>という形にリネームして利用します。</p>
-<h3 id="-">それぞれのファイルを配置した結果の状態</h3>
-<p>プロジェクト直下のフォルダが以下のようなディレクトリ構造になっていればOKです</p>
+<p>WebAPI経由で取得出来るデータ形式は、以下の様なJSON形式のものが一般的かと思います</p>
+<pre><code class="lang-javascript">[{<span class="hljs-string">"id"</span>:<span class="hljs-number">66066</span>,<span class="hljs-string">"uuid"</span>:<span class="hljs-string">"43b07b9fc7986a2e4f01"</span>,<span class="hljs-string">"user"</span>:{<span class="hljs-string">"id"</span>:<span class="hljs-number">43378</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"tfunato"</span>,<span class="hljs-string">"profile_image_url"</span>:<span class="hljs-string">"https://avatars.githubusercontent.com/u/69743?"</span>},<span class="hljs-string">"title"</span>:<span class="hljs-string">"HadoopのJob設定時のConfigurationの注意点"</span>,<span class="hljs-string">"created_at"</span>:<span class="hljs-string">"2014-05-08 04:03:21 +0900"</span>,<span class="hljs-string">"updated_at"</span>:<span class="hljs-string">"2014-05-08 04:03:21 +0900"</span>,<span class="hljs-string">"created_at_in_words"</span>:<span class="hljs-string">"約7時間"</span>,<span class="hljs-string">"updated_at_in_words"</span>:<span class="hljs-string">"約7時間"</span>,<span class="hljs-string">"tags"</span>:[{<span class="hljs-string">"name"</span>:<span class="hljs-string">"hadoop"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"hadoop"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"https://s3-ap-northeast-1.amazonaws.com/qiita-tag-image/ef39105194a4c3253540f491d5e2186650033493/medium.jpg?1364839136"</span>,<span class="hljs-string">"versions"</span>:[<span class="hljs-string">"1.2.1"</span>]}],<span class="hljs-string">"stock_count"</span>:<span class="hljs-number">3</span>,<span class="hljs-string">"comment_count"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"url"</span>:<span class="hljs-string">"http://qiita.com/tfunato/items/43b07b9fc7986a2e4f01"</span>,<span class="hljs-string">"created_at_as_seconds"</span>:<span class="hljs-number">1399489401</span>,<span class="hljs-string">"tweet"</span>:<span class="hljs-literal">false</span>,<span class="hljs-string">"gist_url"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"private"</span>:<span class="hljs-literal">false</span>},{..}]
+</code></pre>
+<p>取得したデータに対して、例えば2014年xx月xx日：xx 件、2014年xx月xx日：xx 件・・というように投稿日別にグループ化したいとか、該当の条件にマッチするものだけ表示したいといった処理が必要になるケースが出てきます。</p>
+<p>Underscore.jsというライブラリを導入することで、上記のような処理を比較的簡単に実現できるので、その方法について解説します</p>
+<h2 id="underscore-js-">Underscore.jsを利用するための事前準備</h2>
+<p><a href="http://underscorejs.org/" target="_blank">Underscore.js</a>のサイトから<a href="http://underscorejs.org/underscore-min.js" target="_blank">Minifiedされたものを</a>をダウンロードします。</p>
+<p><img src="../../../image/underscorejs-download-link.png" alt=""></p>
+<p>Titanium のプロジェクトフォルダのResouces直下に配置します。</p>
+<p>最終的に以下のようなフォルダ構成になればOKです</p>
 <pre><code class="lang-sh">.
 ├── CHANGELOG<span class="hljs-preprocessor">.txt</span>
 ├── LICENSE
@@ -561,46 +556,202 @@
 │   ├── android
 │   ├── app<span class="hljs-preprocessor">.js</span>
 │   ├── iphone
-│   ├── mainWindow<span class="hljs-preprocessor">.js</span>
-│   ├── moment<span class="hljs-preprocessor">.js</span>
-│   ├── momentja<span class="hljs-preprocessor">.js</span>
-│   ├── qiita<span class="hljs-preprocessor">.js</span>
-│   └── style<span class="hljs-preprocessor">.js</span>
+│   └── underscore-min<span class="hljs-preprocessor">.js</span>
 ├── build
 │   ├── android
-│   ├── iphone
-│   └── tishadow
+│   └── iphone
 ├── manifest
 └── tiapp<span class="hljs-preprocessor">.xml</span>
 </code></pre>
-<h2 id="moment-js-">Moment.jsを使ってみる</h2>
-<p>Moment.js使った簡易のサンプルをまずは紹介します。</p>
-<p>app.jsの中身を一旦削除して以下を記述します</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> moment,momentja,time1,time2;
-moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">"moment"</span>);
-momentja = <span class="hljs-built_in">require</span>(<span class="hljs-string">"momentja"</span>);
-time1 = moment().fromNow();
-time2 = moment().format(<span class="hljs-string">'YYYY年mm月DD日'</span>);
-alert(time1);
-alert(time2);
+<h2 id="underscore-js-">Underscore.jsを使ってみる</h2>
+<p>Underscore.js使った簡易のサンプルをまずは紹介します。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> tags = [
+      {
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"JavaScript"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"JavaScript"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/015/medium/images.jpeg?1316130454"</span>,<span class="hljs-string">"versions"</span>:[]
+      },{
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Coffescript"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Coffescript"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/icons/medium/missing.png"</span>,<span class="hljs-string">"versions"</span>:[]
+      },{
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Qiita"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Qiita"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/001/medium/favicon.png?1320171109"</span>,<span class="hljs-string">"versions"</span>:[]
+      },{
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Zsh"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Zsh"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/041/medium/zsh.jpg?1319819723"</span>,<span class="hljs-string">"versions"</span>:[]
+      },{
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Github"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Github"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/090/medium/Octocat.jpg?1320170917"</span>,<span class="hljs-string">"versions"</span>:[]
+      }
+    ];
 </code></pre>
-<p>実行するとtime1、time2のそれぞれの実行結果が画面に表示されます。</p>
-<h3 id="time1-">time1の実行結果</h3>
-<p>momentを読み込んだ後に、momentjaを読み込んで日本語化されてるため、以下のように表示されます。</p>
-<p>※キャプチャー画面はiPhone（iOS7）のアラート部分のみ取得してますので、iPhone版の別のiOSやAndroidでの表示は多少異なります。</p>
-<p><img src="../../../image/introduceJSLibrary-moment-alert00.png" alt=""></p>
-<p>もしも、日本語表記ではなく、英語表記にしたい場合にはmomentjaを読み込まず以下のようにすることで期待される結果が得られます</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> moment,nonLocalizeTime;
-moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">"moment"</span>);
-nonLocalizeTime = moment().fromNow();
-alert(nonLocalizeTime);
+<p>上記データに対して、特定のタグにマッチする、具体的には、tagsのnameプロパティがJavaScriptのものだけを抽出したいというような処理を行いたい場合に、Underscore.jsのwhere()を利用することで手軽に実現できます。</p>
+<h3 id="-">ソースコード</h3>
+<p>app.jsの中身を一旦削除して以下を記述します。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> _ ,tags;
+_ = <span class="hljs-built_in">require</span>(<span class="hljs-string">"underscore-min"</span>);
+tags = [
+  {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"JavaScript"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"JavaScript"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/015/medium/images.jpeg?1316130454"</span>,<span class="hljs-string">"versions"</span>:[]
+  },{
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"Coffescript"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Coffescript"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/icons/medium/missing.png"</span>,<span class="hljs-string">"versions"</span>:[]
+  },{
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"Qiita"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Qiita"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/001/medium/favicon.png?1320171109"</span>,<span class="hljs-string">"versions"</span>:[]
+  },{
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"Zsh"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Zsh"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/041/medium/zsh.jpg?1319819723"</span>,<span class="hljs-string">"versions"</span>:[]
+  },{
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"Github"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Github"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/090/medium/Octocat.jpg?1320170917"</span>,<span class="hljs-string">"versions"</span>:[]
+  }
+];
+
+alert(_.where(tags,{name:<span class="hljs-string">"JavaScript"</span>}));
 </code></pre>
-<p><img src="../../../image/introduceJSLibrary-moment-alert02.png" alt=""></p>
-<h3 id="time2-">time2の実行結果</h3>
-<p>moment().format()のようにすることで、任意の日付形式で表示できます。format()を利用する際に任意の引数を指定することで意図した値が得られます。</p>
-<p>今回のサンプルでは<strong>YYYY年mm月DD日</strong>としてるので、以下のような結果になります。</p>
-<p><img src="../../../image/introduceJSLibrary-moment-alert01.png" alt=""></p>
-<p>次の項ではWebAPIから取得した値をMoment.jsを使って任意の日付に変換して画面表示するサンプルアプリケーションの解説をしてきます。</p>
+<p>上記実行すると、以下の様になるかと思います。</p>
+<p><img src="../../../image/introduceJSLibrary-underscore-iphone01.png" alt=""></p>
+<h3 id="-">ソースコードの解説</h3>
+<p>キモになる所のソースコードを以下抜粋して実際の処理内容を解説します。</p>
+<p>まず、Underscore.jsを利用するために、以下のようにしてファイルを読み込みます。読み込んだファイルを変数に格納しますが、変数名を _（アンダースコアー）にするのが通例のようなのでそれにならって以下のようにします。</p>
+<pre><code class="lang-javascript">_ = <span class="hljs-built_in">require</span>(<span class="hljs-string">"underscore-min"</span>);
+</code></pre>
+<p>次に、以下のUnderscore.jsのwhere()の部分について解説します。</p>
+<pre><code class="lang-javascript">alert(_.where(tags,{<span class="hljs-string">"name"</span>:<span class="hljs-string">"JavaScript"</span>}));
+</code></pre>
+<p>where()は2つ引数を取ります。</p>
+<p>_.where(<1>,{<2>})</p>
+<ol>
+<li>最初の引数は、検索対象となる配列を渡します。今回は tags = [{},{}...]というものが対象になるため、最初の引数をtagsとしてます。</li>
+<li>次の引数ですが、検索条件となるものを、key-valueの形式で渡します。今回はnameプロパティがJavaScriptのものだけを抽出したいため、{name:&quot;JavaScript&quot;}という形になります。</li>
+</ol>
+<h2 id="qiita-webapi-">QiitaのWebAPIから得られるデータで特定のタグにマッチするものだけ抽出する</h2>
+<p>上記解説時に利用したサンプルのJSON形式のデータのようなシンプルな構造のケースは少なく、実際にQiitaのWebAPIから得られる形式は、以下のようにオブジェクトが入れ子になってます。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> result = [
+  {
+    <span class="hljs-string">"uuid"</span>:<span class="hljs-string">"88194612bb0fa705e39d"</span>,
+    <span class="hljs-string">"tags"</span>:[
+      {
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"JavaScript"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"JavaScript"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/015/medium/images.jpeg?1316130454"</span>,<span class="hljs-string">"versions"</span>:[]
+      },{
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Coffescript"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Coffescript"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/icons/medium/missing.png"</span>,<span class="hljs-string">"versions"</span>:[]
+      },{
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Qiita"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Qiita"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/001/medium/favicon.png?1320171109"</span>,<span class="hljs-string">"versions"</span>:[]
+      }
+    ]
+  },
+  {
+    <span class="hljs-string">"uuid"</span>:<span class="hljs-string">"542e652b73a359a1d118"</span>,
+    <span class="hljs-string">"tags"</span>:[
+      {
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Zsh"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Zsh"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/041/medium/zsh.jpg?1319819723"</span>,<span class="hljs-string">"versions"</span>:[]
+      },{
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Github"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Github"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/090/medium/Octocat.jpg?1320170917"</span>,<span class="hljs-string">"versions"</span>:[]
+      }
+    ]
+  }
+];
+</code></pre>
+<p>こういうデータ構造になってるものに対して、先ほどと同様にtagsのnameプロパティがJavaScriptのものだけを抽出したいというような処理を行う場合には一工夫した上でUnderscore.jsのwhere()を利用する必要がありますので、その方法について以下解説します。</p>
+<h2 id="-">オブジェクトが入れ子になったデータに対する処理の概要</h2>
+<p>まずはソースコードを以下に示します。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">"underscore-min"</span>);
+<span class="hljs-keyword">var</span> result = [
+  {
+    <span class="hljs-string">"uuid"</span>:<span class="hljs-string">"88194612bb0fa705e39d"</span>,
+    <span class="hljs-string">"tags"</span>:[
+      {
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"JavaScript"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"JavaScript"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/015/medium/images.jpeg?1316130454"</span>,<span class="hljs-string">"versions"</span>:[]
+      },{
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Coffescript"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Coffescript"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/icons/medium/missing.png"</span>,<span class="hljs-string">"versions"</span>:[]
+      },{
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Qiita"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Qiita"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/001/medium/favicon.png?1320171109"</span>,<span class="hljs-string">"versions"</span>:[]
+      }
+    ]
+  },
+  {
+    <span class="hljs-string">"uuid"</span>:<span class="hljs-string">"542e652b73a359a1d118"</span>,
+    <span class="hljs-string">"tags"</span>:[
+      {
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Zsh"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Zsh"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/041/medium/zsh.jpg?1319819723"</span>,<span class="hljs-string">"versions"</span>:[]
+      },{
+        <span class="hljs-string">"name"</span>:<span class="hljs-string">"Github"</span>,<span class="hljs-string">"url_name"</span>:<span class="hljs-string">"Github"</span>,<span class="hljs-string">"icon_url"</span>:<span class="hljs-string">"http://qiita.com/system/tags/icons/000/000/090/medium/Octocat.jpg?1320170917"</span>,<span class="hljs-string">"versions"</span>:[]
+      }
+    ]
+  }
+];
+
+matchTag(result,<span class="hljs-string">"JavaScript"</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">matchTag</span><span class="hljs-params">(items, tagName)</span> {</span>
+  <span class="hljs-keyword">var</span> i, tags, value, _, result = [] ;
+  <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>;i&lt;items.length;i++) {
+    tags = items[i].tags;
+    _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">"underscore-min"</span>);
+    value = _.where(tags, {
+      <span class="hljs-string">"url_name"</span>: tagName
+    });
+    <span class="hljs-keyword">if</span>(value){
+      result.push(items[i]);
+    }
+  }
+  <span class="hljs-keyword">return</span> result;
+};
+</code></pre>
+<p>実行すると以下の様な画面が表示されます。</p>
+<p><img src="../../../image/introduceJSLibrary-underscore-iphone02.png" alt=""></p>
+<h3 id="-">ソースコードの解説</h3>
+<p>今回のようなオブジェクトが入れ子構造になってるものに対して</p>
+<pre><code class="lang-javascript">alert(_.where(result,{name:<span class="hljs-string">"JavaScript"</span>}));
+</code></pre>
+<p>としても、検索対象のresultの直下には<strong>uuid</strong>と<strong>tags</strong>というプロパティしか存在しないため意図したような検索結果が得られません。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> result = [
+  {
+    <span class="hljs-string">"uuid"</span>:<span class="hljs-string">"88194612bb0fa705e39d"</span>,
+    <span class="hljs-string">"tags"</span>:[]
+  },{
+    <span class="hljs-string">"uuid"</span>:<span class="hljs-string">"542e652b73a359a1d118"</span>,
+    <span class="hljs-string">"tags"</span>:[]
+  }
+]
+</code></pre>
+<p>今回のように、tagsプロパティ内の配列を検索対象にする場合、まずはresult配列に対してループ処理をして、result内部のオブジェクト１つ１つにアクセスします。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>;i&lt;items.length;i++) {
+  <span class="hljs-comment">// ループして１つ１つのオブジェクトにアクセスする</span>
+  tags = items[i].tags;
+
+}
+</code></pre>
+<p>そして、アクセスしたオブジェクトのtagsに対してwhere()を適用してtagsのnameプロパティが該当のものにマッチした場合には、valueに値を格納します。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>;i&lt;items.length;i++) {
+  <span class="hljs-comment">// ループして１つ１つのオブジェクトにアクセスする</span>
+  tags = items[i].tags;
+  _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">"underscore-min"</span>);
+  <span class="hljs-comment">// アクセスしたオブジェクトのtagsに対してwhere()を適用</span>
+  value = _.where(tags, {
+    <span class="hljs-string">"url_name"</span>: tagName
+  });
+}
+</code></pre>
+<p>そして、valueの値をチェックして該当のタグにマッチするオブジェクトの場合には、この関数内で利用する配列resultに格納しておきます。</p>
+<h3 id="-">実際の処理結果の概要</h3>
+<p>uuidの値が<strong>88194612bb0fa705e39d</strong>のtagsには</p>
+<pre><code class="lang-javascript"><span class="hljs-string">"tags"</span>:[
+  {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"JavaScript"</span>,<span class="hljs-comment">//省略</span>
+  },
+  {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"Coffescript"</span>,<span class="hljs-comment">//省略</span>
+  },
+  {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"Qiita"</span>,<span class="hljs-comment">//省略</span>
+  }
+]
+</code></pre>
+<p>となってるのでこちらは条件にマッチします。</p>
+<p>一方でてuuidの値が<strong>542e652b73a359a1d118</strong>のtagsには</p>
+<pre><code class="lang-javascript"><span class="hljs-string">"tags"</span>:[
+  {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"Zsh"</span>,<span class="hljs-comment">//省略</span>
+  },
+  {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"Github"</span>,<span class="hljs-comment">//省略</span>
+  }
+]
+</code></pre>
+<p>なのでこちらはマッチしないため、alert()で表示されません。</p>
+<p>この内容を踏まえて、QiitaのWeb APIから取得したデータに対して2014年xx月xx日：xx 件、2014年xx月xx日：xx 件・・というように投稿日別にグループ化するサンプルアプリケーションについて紹介します。</p>
 
                 
                 </section>
@@ -611,7 +762,7 @@ alert(nonLocalizeTime);
     
         
             
-            <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" class="navigation-link next">Next</a>
+            <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/useUnderscore.html" class="navigation-link next">Next</a>
             
         
     

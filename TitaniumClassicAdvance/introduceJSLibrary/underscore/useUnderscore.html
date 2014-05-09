@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# book: http://ogp.me/ns/book#">
         
         <meta charset="UTF-8">
-        <title>日付処理を便利に行えるMoment.js | Tistudy</title>
+        <title>QiitaのWeb APIから取得したデータを投稿日別にグループ化して表示 | Tistudy</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -13,13 +13,13 @@
         <meta name="generator" content="www.gitbook.io">
 
         
-        <link rel="next" href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" />
+        <link rel="next" href="../../../Alloy/README.html" />
         
         
-        <link rel="prev" href="../../../TitaniumClassicAdvance/introduceJSLibrary/README.html" />
+        <link rel="prev" href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/README.html" />
         
 
-        <meta property="og:title" content="日付処理を便利に行えるMoment.js | Tistudy">
+        <meta property="og:title" content="QiitaのWeb APIから取得したデータを投稿日別にグループ化して表示 | Tistudy">
         <meta property="og:site_name" content="Tistudy">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -40,7 +40,7 @@
     </head>
     <body>
         
-<div class="book" data-github="h5y1m141/tistudy" data-level="11">
+<div class="book" data-github="h5y1m141/tistudy" data-level="12.1">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="https://github.com/h5y1m141/tistudy" target="_blank" class="btn pull-left"><i class="fa fa-github-alt"></i></a>
@@ -68,7 +68,7 @@
             <a href="https://github.com/h5y1m141/tistudy/issues" target="blank">Questions and Issues</a>
         </li>
         <li>
-            <a href="https://github.com/h5y1m141/tistudy/edit/master/TitaniumClassicAdvance/introduceJSLibrary/moment/README.md" target="blank">Edit and Contribute</a>
+            <a href="https://github.com/h5y1m141/tistudy/edit/master/TitaniumClassicAdvance/introduceJSLibrary/underscore/useUnderscore.md" target="blank">Edit and Contribute</a>
         </li>
         <li class="divider"></li>
         <li data-level="0">
@@ -444,7 +444,7 @@
         <div class="page-wrapper">
             <div class="book-progress">
     <div class="bar">
-        <div class="inner" style="width: 20.512820512820515%;min-width: 17.94871794871795%;"></div>
+        <div class="inner" style="width: 28.205128205128204%;min-width: 25.641025641025642%;"></div>
     </div>
     <div class="chapters">
     
@@ -466,11 +466,11 @@
     
         <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/README.html" title="日付処理を便利に行えるMoment.js" class="chapter done " data-progress="11" style="left: 20.512820512820515%;"></a>
     
-        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" title="QiitaのWebAPIと連携させるアプリでMoment.jsを使う" class="chapter  " data-progress="11.1" style="left: 23.076923076923077%;"></a>
+        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" title="QiitaのWebAPIと連携させるアプリでMoment.jsを使う" class="chapter done " data-progress="11.1" style="left: 23.076923076923077%;"></a>
     
-        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/README.html" title="配列操作を便利に行えるUnderscore.js" class="chapter  " data-progress="12" style="left: 25.641025641025642%;"></a>
+        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/README.html" title="配列操作を便利に行えるUnderscore.js" class="chapter done " data-progress="12" style="left: 25.641025641025642%;"></a>
     
-        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/useUnderscore.html" title="QiitaのWeb APIから取得したデータを投稿日別にグループ化して表示" class="chapter  " data-progress="12.1" style="left: 28.205128205128204%;"></a>
+        <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/underscore/useUnderscore.html" title="QiitaのWeb APIから取得したデータを投稿日別にグループ化して表示" class="chapter done " data-progress="12.1" style="left: 28.205128205128204%;"></a>
     
         <a href="../../../Alloy/README.html" title="Titanium Classic環境からAlloyに移行する" class="chapter  " data-progress="13" style="left: 30.76923076923077%;"></a>
     
@@ -533,27 +533,27 @@
 
             <div class="page-inner">
             
-                <section class="normal" id="section-gitbook_26">
+                <section class="normal" id="section-gitbook_29">
                 
-                    <h1 id="-moment-js">日付処理を便利に行えるMoment.js</h1>
+                    <h1 id="qiita-web-api-">QiitaのWeb APIから取得したデータを投稿日別にグループ化して表示</h1>
 <h2 id="-">はじめに</h2>
-<p>WebAPIと連携するアプリケーションで以下のようにタイムラインビューを持ったユーザインタフェースの場合に、以下画面の赤枠で囲った部分のように<strong>何分前に投稿された情報なのか</strong>すぐにわかるようになってるケースが多いかと思います。</p>
-<p><img src="../../../image/introduceJSLibrary-moment01.png" alt="イメージ"></p>
-<p>QiitaのWebAPIでは、xx分前の情報かわかるような項目がすでに準備されているため、その値を表示するだけで済むのですが、必ずしも全てのWebAPIがこのようになってるとは限らず、<strong>2014/04/15 12:34:56</strong>というような形式でデータが返ってくる事のほうが主流かと思います。</p>
-<p>もしも、<strong>2014/04/15 12:34:56</strong>という形式のものをxx分前という形式に変更する場合には、現在の時刻の差分を計算してという処理を自分で書く必要が出てきます。</p>
-<p>Titanium Mobileでは、CommonJSスタイルで書かれたJavaScriptのライブラリはそのまま活用できることが多く、こういう日付処理に向いたライブラリとして、<a href="http://momentjs.com/" target="_blank">Moment.js</a>というものがあるのでそれを組み込むことで、面倒な日付計算が簡単にできるので、その紹介をします。</p>
-<h2 id="moment-js-">Moment.jsを利用するための事前準備</h2>
-<p><a href="http://momentjs.com/" target="_blank">Moment.js</a> のサイトからMinifiedされたファイルをダウンロードします。</p>
-<p><img src="../../../image/introduceJSLibrary-moment00.png" alt="iPhone"></p>
-<p>ダウンロードしたファイルを<strong>moment.min.jsからmoment.js</strong>に変更します。</p>
-<h3 id="-">日本語化するためのファイルを別途ダウンロードする</h3>
-<p>Moment.jsはデフォルトは英語表記なのですがi18n（internationalization。国際化）対応しているので、日本語表記をした別ファイルを準備することで手軽に日本語化も出来ます。</p>
-<p><a href="http://gti.jp" target="_blank">株式会社ジーティーアイ</a>の佐藤　毅 さんという方が作成した<a href="http://gti.jp/ajax/livestamp/moment.lang_ja.js" target="_blank">moment.lang_ja.js</a>をダウンロードして利用します。</p>
-<p>なお、moment.lang_ja.jsのファイル名だと手元の環境では、require()で読み込めなかったので<strong>momentja.js</strong>という形にリネームして利用します。</p>
-<h3 id="-">それぞれのファイルを配置した結果の状態</h3>
-<p>プロジェクト直下のフォルダが以下のようなディレクトリ構造になっていればOKです</p>
-<pre><code class="lang-sh">.
-├── CHANGELOG<span class="hljs-preprocessor">.txt</span>
+<p>QiitaのWeb APIから取得したデータに対して</p>
+<ul>
+<li>2014年xx月xx日：xx 件</li>
+<li>2014年xx月xx日：xx 件</li>
+</ul>
+<p>というように投稿日別にグループ化する以下の様なサンプルアプリケーションについて紹介します。</p>
+<p><img src="../../../image/introduceJSLibrary-underscore-applicationImage.png" alt=""></p>
+<h2 id="-">開発前の事前準備</h2>
+<p>説明の都合上、QiitaのWebAPI経由で取得したJSON形式のデータをあらかじめ準備してあるので以下要領で作業をします。</p>
+<ol>
+<li>Webブラウザでダウンロードして、ファイル名をsample.txtから、sample.jsonに変更</li>
+<li>現在開発中のTitanium MobileのプロジェクトのResourcesフォルダ直下に保存してください</li>
+</ol>
+<p><a href="https://raw.githubusercontent.com/h5y1m141/tistudy/master/TitaniumClassicAdvance/introduceJSLibrary/underscore/sample.txt" target="_blank">https://raw.githubusercontent.com/h5y1m141/tistudy/master/TitaniumClassicAdvance/introduceJSLibrary/underscore/sample.txt</a></p>
+<p>また先程のサンプルアプリで利用したUnderscore.jsに加えて、日付処理をするために、Moment.jsも利用します。</p>
+<p>プロジェクト配下のディレクトリ構成は以下の様になります。</p>
+<pre><code class="lang-sh">├── CHANGELOG<span class="hljs-preprocessor">.txt</span>
 ├── LICENSE
 ├── LICENSE<span class="hljs-preprocessor">.txt</span>
 ├── README
@@ -563,44 +563,189 @@
 │   ├── iphone
 │   ├── mainWindow<span class="hljs-preprocessor">.js</span>
 │   ├── moment<span class="hljs-preprocessor">.js</span>
-│   ├── momentja<span class="hljs-preprocessor">.js</span>
 │   ├── qiita<span class="hljs-preprocessor">.js</span>
-│   └── style<span class="hljs-preprocessor">.js</span>
+│   ├── sample<span class="hljs-preprocessor">.json</span>
+│   ├── style<span class="hljs-preprocessor">.js</span>
+│   └── underscore-min<span class="hljs-preprocessor">.js</span>
 ├── build
 │   ├── android
-│   ├── iphone
-│   └── tishadow
+│   └── iphone
 ├── manifest
 └── tiapp<span class="hljs-preprocessor">.xml</span>
 </code></pre>
-<h2 id="moment-js-">Moment.jsを使ってみる</h2>
-<p>Moment.js使った簡易のサンプルをまずは紹介します。</p>
-<p>app.jsの中身を一旦削除して以下を記述します</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> moment,momentja,time1,time2;
-moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">"moment"</span>);
-momentja = <span class="hljs-built_in">require</span>(<span class="hljs-string">"momentja"</span>);
-time1 = moment().fromNow();
-time2 = moment().format(<span class="hljs-string">'YYYY年mm月DD日'</span>);
-alert(time1);
-alert(time2);
+<h2 id="-">説明割愛するソースコードについて</h2>
+<p>app.jsとstyle.jsについては特にこれまで同様の処理になってるので、説明を割愛してソースコードのみ以下記載しておきます。</p>
+<h3 id="app-js">app.js</h3>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> mainWindow,win;
+
+mainWindow = <span class="hljs-built_in">require</span>(<span class="hljs-string">"mainWindow"</span>);
+win = mainWindow.createWindow();    
+win.open();
 </code></pre>
-<p>実行するとtime1、time2のそれぞれの実行結果が画面に表示されます。</p>
-<h3 id="time1-">time1の実行結果</h3>
-<p>momentを読み込んだ後に、momentjaを読み込んで日本語化されてるため、以下のように表示されます。</p>
-<p>※キャプチャー画面はiPhone（iOS7）のアラート部分のみ取得してますので、iPhone版の別のiOSやAndroidでの表示は多少異なります。</p>
-<p><img src="../../../image/introduceJSLibrary-moment-alert00.png" alt=""></p>
-<p>もしも、日本語表記ではなく、英語表記にしたい場合にはmomentjaを読み込まず以下のようにすることで期待される結果が得られます</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> moment,nonLocalizeTime;
-moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">"moment"</span>);
-nonLocalizeTime = moment().fromNow();
-alert(nonLocalizeTime);
+<h3 id="style-js">style.js</h3>
+<pre><code class="lang-javascript">exports.mainTable = {
+    <span class="hljs-string">"width"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"height"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"backgroundColor"</span>: <span class="hljs-string">"#fff"</span>,
+    <span class="hljs-string">"separatorColor"</span>: <span class="hljs-string">"#ccc"</span>,
+    <span class="hljs-string">"left"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"top"</span>: <span class="hljs-number">0</span>
+};
+exports.row = {
+    <span class="hljs-string">"width"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">40</span>,
+    <span class="hljs-string">"borderWidth"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"className"</span>:<span class="hljs-string">"entry"</span>
+};
+exports.detailRow = {
+    <span class="hljs-string">"width"</span>: Ti.UI.FULL,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">40</span>,
+    <span class="hljs-string">"borderWidth"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"className"</span>:<span class="hljs-string">"detail"</span>
+};
+
+exports.textLabel = {
+    <span class="hljs-string">"width"</span>:<span class="hljs-number">150</span>,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">20</span>,
+    <span class="hljs-string">"top"</span>:<span class="hljs-number">15</span>,
+    <span class="hljs-string">"left"</span>:<span class="hljs-number">10</span>,
+    <span class="hljs-string">"color"</span>:<span class="hljs-string">"#222"</span>,
+    <span class="hljs-string">"font"</span>:{
+        <span class="hljs-string">"fontSize"</span>:<span class="hljs-number">16</span>
+    }
+};
+exports.detailTextLabel = {
+    <span class="hljs-string">"width"</span>:<span class="hljs-number">300</span>,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">20</span>,
+    <span class="hljs-string">"top"</span>:<span class="hljs-number">5</span>,
+    <span class="hljs-string">"left"</span>:<span class="hljs-number">10</span>,
+    <span class="hljs-string">"color"</span>:<span class="hljs-string">"#444"</span>,
+    <span class="hljs-string">"font"</span>:{
+        <span class="hljs-string">"fontSize"</span>:<span class="hljs-number">12</span>
+    }
+};
+
+exports.countLabel = {
+    <span class="hljs-string">"width"</span>:<span class="hljs-number">40</span>,
+    <span class="hljs-string">"height"</span>:<span class="hljs-number">20</span>,
+    <span class="hljs-string">"top"</span>:<span class="hljs-number">15</span>,
+    <span class="hljs-string">"left"</span>:<span class="hljs-number">140</span>,
+    <span class="hljs-string">"borderRadius"</span>:<span class="hljs-number">10</span>,  
+    <span class="hljs-string">"color"</span>:<span class="hljs-string">"#eee"</span>,
+    <span class="hljs-string">"backgroundColor"</span>:<span class="hljs-string">"#59BB0C"</span>,  
+    <span class="hljs-string">"textAlign"</span>:<span class="hljs-string">"center"</span>,
+    <span class="hljs-string">"font"</span>:{
+        <span class="hljs-string">"fontSize"</span>:<span class="hljs-number">12</span>,
+        <span class="hljs-string">"fontWeight"</span>:<span class="hljs-string">"bold"</span>
+    }
+};
 </code></pre>
-<p><img src="../../../image/introduceJSLibrary-moment-alert02.png" alt=""></p>
-<h3 id="time2-">time2の実行結果</h3>
-<p>moment().format()のようにすることで、任意の日付形式で表示できます。format()を利用する際に任意の引数を指定することで意図した値が得られます。</p>
-<p>今回のサンプルでは<strong>YYYY年mm月DD日</strong>としてるので、以下のような結果になります。</p>
-<p><img src="../../../image/introduceJSLibrary-moment-alert01.png" alt=""></p>
-<p>次の項ではWebAPIから取得した値をMoment.jsを使って任意の日付に変換して画面表示するサンプルアプリケーションの解説をしてきます。</p>
+<h2 id="-">今回のサンプルアプリケーションのキモになる処理について</h2>
+<p>qiita.jsとmainWindow.jsはそれぞれ大幅に変更してるのでソースコード記載しつつ、ポイントにある箇所について順番に解説していきます。</p>
+<p>まず、qiita.jsの方ですが、今回はローカルのJSONデータを読み込んで任意の形式に変換するgetItemsGroupByCreatedDate()という関数のみ実装しています。</p>
+<p>任意の形式に変換する部分ですが、サンプルのデータから、投稿日をYYYYMMDD形式に変換してその値をグループ化時のkeyとして利用して最終的に以下のような構造を作ります。</p>
+<pre><code class="lang-javascript">[
+  {
+    <span class="hljs-string">"groupingKey"</span>:<span class="hljs-number">20140509</span>,
+    <span class="hljs-string">"rawData"</span>:[
+      <span class="hljs-comment">//投稿日が20140509の投稿情報をまるごと格納</span>
+    ]
+  },
+  {
+    <span class="hljs-string">"groupingKey"</span>:<span class="hljs-number">20140508</span>,
+    <span class="hljs-string">"rawData"</span>:[
+      <span class="hljs-comment">//投稿日が20140508の投稿情報をまるごと格納</span>
+    ]
+  }
+]
+</code></pre>
+<h3 id="qiita-js-">qiita.jsのソースコードの解説</h3>
+<pre><code class="lang-javascript">exports.getItemsGroupByCreatedDate = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  <span class="hljs-keyword">var</span> sample, file, items, moment, _, i, len, groupingKey,result = [],gropued;
+  sample = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, <span class="hljs-string">"sample.json"</span>);
+  file = sample.read().toString();
+  items = <span class="hljs-built_in">JSON</span>.parse(file);
+
+  moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">"moment"</span>);
+  _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">"underscore-min"</span>);
+
+  <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>, len = items.length;i &lt;len;i++){
+    groupingKey =  moment(items[i].created_at, <span class="hljs-string">"YYYYMMDD"</span>).format(<span class="hljs-string">"YYYYMMDD"</span>);  <span class="hljs-comment">// (1)</span>
+    result.push({
+      <span class="hljs-string">"groupingKey"</span>:groupingKey,
+      <span class="hljs-string">"rawData"</span>:items[i]
+    });
+
+  }
+
+  gropued = _.groupBy(result,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(item)</span>{</span>  <span class="hljs-comment">// (2)</span>
+    <span class="hljs-keyword">return</span> item.groupingKey;
+  });
+
+  <span class="hljs-keyword">return</span> gropued;
+
+}
+</code></pre>
+<ol>
+<li>Moment.jsを使って、Qiitaの投稿情報の投稿日が格納されてるcreated_atを引数にして、YYYYMMDD形式に変換します。</li>
+<li>Underscore.jsのgroupBy()という関数を利用して、グループ化の処理を行います。groupBy()の第二引数のfunction(item){return item.groupingKey;}); の所がキモになる処理でここでgroupingKeyというプロパティをキーにしてグループ化の処理をしています。最終的にグループ化された値を変数gropuedに格納しています。</li>
+</ol>
+<p>Underscore.jsのgroupBy()の利用方法については、有志の方によるUnderscore.jsの日本語化されたドキュメントがありますので、こちらを合わせて読むと理解が進むかと思います。</p>
+<p><a href="https://github.com/enja-oss/Underscore/blob/master/docs/Collection.md" target="_blank">https://github.com/enja-oss/Underscore/blob/master/docs/Collection.md</a></p>
+<h3 id="mainwindow-js-">mainWindow.jsについて</h3>
+<pre><code class="lang-javascript">exports.createWindow = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">var</span> win = Ti.UI.createWindow({
+        title:<span class="hljs-string">"QiitaViewer"</span>
+    });
+    win.add(mainTable);
+    <span class="hljs-keyword">return</span> win;
+};
+
+<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>),
+    mainTable = Ti.UI.createTableView(style.mainTable),
+    qiita = <span class="hljs-built_in">require</span>(<span class="hljs-string">"qiita"</span>),
+    items,
+    rows;
+
+items = qiita.getItemsGroupByCreatedDate();
+rows = createRows(items);
+mainTable.setData(rows);
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createRows</span><span class="hljs-params">(items)</span>{</span>
+    <span class="hljs-keyword">var</span> style = <span class="hljs-built_in">require</span>(<span class="hljs-string">"style"</span>),
+      row,
+      detailRow,
+      rows = [],
+      textLabel,
+      countLabel,
+      detailTextLabel,
+      moment;
+  moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">"moment"</span>);
+
+  <span class="hljs-keyword">for</span>(groupKey <span class="hljs-keyword">in</span> items){
+
+    row = Ti.UI.createTableViewRow(style.row);
+    textLabel = Ti.UI.createLabel(style.textLabel);
+    countLabel= Ti.UI.createLabel(style.countLabel);
+        textLabel.text = moment(groupKey,<span class="hljs-string">"YYYYMMDD"</span>).format(<span class="hljs-string">"YYYY年MM月DD日"</span>);
+    countLabel.text = items[groupKey].length + <span class="hljs-string">"件"</span>;
+        row.add(textLabel);
+        row.add(countLabel);
+        rows.push(row);
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; items[groupKey].length; j++){
+      detailRow = Ti.UI.createTableViewRow(style.detailRow);
+      detailTextLabel = Ti.UI.createLabel(style.detailTextLabel);
+      detailTextLabel.text = items[groupKey][j].rawData.title;
+      Ti.API.info(<span class="hljs-string">"  "</span> + items[groupKey][j].rawData.title);
+      detailRow.add(detailTextLabel);
+      rows.push(detailRow);
+    }
+  }
+    <span class="hljs-keyword">return</span> rows;
+};
+</code></pre>
 
                 
                 </section>
@@ -611,7 +756,7 @@ alert(nonLocalizeTime);
     
         
             
-            <a href="../../../TitaniumClassicAdvance/introduceJSLibrary/moment/useMomentjs.html" class="navigation-link next">Next</a>
+            <a href="../../../Alloy/README.html" class="navigation-link next">Next</a>
             
         
     
